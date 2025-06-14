@@ -1,0 +1,58 @@
+/* styles/globals.css
+.swiper-pagination-bullet {
+    width: 16px !important;
+    height: 4px !important;
+    border-radius: 5px !important;
+    margin: 0 6px !important;
+  }
+  
+  .swiper-pagination {
+    bottom: 2px !important;
+  }
+  
+  .swiper-wrapper {
+    height: max-content !important;
+    width: max-content !important;
+    padding-bottom: 64px;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: #4F46E5 !important;
+  }
+  
+  .swiper-slide.swiper-slide-active .slide_active\:border-indigo-600 {
+    border-color: rgb(79 70 229);
+  }
+  
+  .swiper-slide.swiper-slide-active .group .slide_active\:text-gray-800 {
+    color: rgb(31 41 55);
+  }
+   */
+
+   
+
+   /* styles/globals.css */
+.mySwiper {
+    /* Ensure the Swiper container has a fixed height or min-height */
+    height: auto;
+  }
+  
+  /* Adjust pagination and navigation styles if needed */
+  .swiper-pagination-bullet {
+    width: 16px;
+    height: 4px;
+    border-radius: 5px;
+    margin: 0 6px;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: #4F46E5;
+  }
+  
+  /* Ensure Swiper slides are properly spaced */
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

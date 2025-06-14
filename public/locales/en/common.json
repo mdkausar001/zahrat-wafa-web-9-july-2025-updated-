@@ -1,0 +1,198 @@
+{
+    "home": "Home",
+    "services": "Services",
+    "testimonial": "Testimonial",
+    "client": "Client",
+    "bookNow": "Book Now",
+    "expertTechnicians": "Expert Technicians",
+  "servicedCars": "Serviced Cars",
+  "satisfiedClients": "Satisfied Clients",
+  "ourClients": "Our Clients",
+    "largestNetwork": "Largest Professional Automotive Service Network in Saudi Arabia. We proudly serve a diverse range of clients with top-notch car service and repair solutions.",
+    "ourServices": "OUR SERVICES",
+    "choosePackage": "Let's choose the package that is best for you and explore it happily and cheerfully."
+  ,
+    "repairFixes": "Repair & Fixes",
+  "comprehensiveServices": "Comprehensive repair services for your vehicle.",
+
+  
+    
+        "theMostTrusted": "The Most Trusted",
+        "carService": "Car Service",
+        "repair": "Repair",
+        "workshop": "Workshop",
+        "description1": "We are the Best Premium Auto Workshop provides quality car care in your city. We’re a team of professionals and highly trained technicians who are passionate about everything that has to do with cars!",
+      
+      
+        "ourServicePartner": "Our Service Partner",
+        "servicePartnerDescription": "Our service partner collaborates with us, offering expertise and resources to deliver high-quality, reliable, and professional services to our clients.",
+        
+          "weServiceAllCarBrands": "We Service All Car Brands",
+          "serviceAllBrandsDescription":  "While we service all car brands, here are some of the car brands we've worked on.",
+          "regularService": "Regular Service",
+          "regularServiceDescription": "Basic maintenance for your vehicle.",
+          "bodyWorks": "Body Works",
+          "bodyWorksDescription": "Body repair and restoration services.",
+          "cleaningCare": "Cleaning & Care",
+          "cleaningCareDescription": "Interior and exterior cleaning and maintenance.",
+          "repairFixes": "Repair & Fixes",
+          "repairFixesDescription": "Comprehensive repair services for your vehicle.",
+          "testimonials": "TESTIMONIALS",
+          "testimonialsDescription": "What our happy user says!",
+          "name1": "fides valenda amodia",
+          "customerSays":"What our happy user says!",
+  "city1": "Jeddah",
+  "country1": "Saudi Arabia",
+  "testimoni1": "This shop is amazing, it makes my car brand new again, and they fix my minor dent for free. Thanks to the engineer in charge. it was tawuniya accredited workshop actually. I rate 4 Star because of great workmanship and service, above expectation",
+  
+  "name2": "Omer Saeed",
+  "city2": "Riyadh",
+  "country2": "Saudi Arabia",
+  "testimoni2": "Great, professional and high-quality service. Only workshop I can find in the area where I can leave my car and trust the people and the quality of their work. I was expecting to pay more for my parts and problems but Mr. Abdullah helped me get the price down, lowered it and made sure the car was back to health. In short, the best service for the least amount of money, you still can't find anything more satisfying in town. Keep it up, guys! good job!",
+  
+  "name3": "Mohammed Al Ruwaibi",
+  "city3": "Jeddah",
+  "country3": "Saudi Arabia",
+  "testimoni3": "Frankly, the facility is far away, but the reception is very good, and the appointment is tomorrow with them, I had experienced their services before and would like to tell everyone they are excellent, knowing that I am a subscriber to Dox",
+  
+  "name4": "iezh Robert",
+  "city4": "Riyadh",
+  "country4": "Saudi Arabia",
+  "testimoni4": "I highly recommend it. Classy treatment from Brother Hamza and the rest of the technical staff. Adopt it and you will not regret it",
+"faqs":"Frequently Asked Questions",
+  "question1": "What car services do you offer?",
+  "answer1": "We offer a range of services including Regular Service for basic maintenance such as oil changes, Body Works for repair and restoration, Cleaning & Care for interior and exterior maintenance, and Repair & Fixes for comprehensive vehicle repairs.",
+  
+  "question2": "How can insurance coverage assist me?",
+  "answer2": "Our partnership with insurance companies allows for seamless claims processing and coverage for repairs.",
+  
+  "question3": "Do I need an appointment for service?",
+  "answer3": "While appointments are recommended, we accept walk-ins based on availability. You can book a service via our website, WhatsApp, or by walking in.  ",
+  
+  "question4": "Can you help with insurance claims?",
+  "answer4": "Yes! Our team can assist you with the paperwork and communication with your insurance provider.",
+  
+  "question5": "What payment options do you accept?",
+  "answer5": "We accept various payment methods including credit cards, debit cards, and insurance payments.",
+  "companyName": "Zahrat Al Wafa",
+  "slogan": "Your trusted partner for all car services and repairs.",
+  "copyright": " Zahrat Al Wafa Alarabia Company",
+  "ourPartner":"Service Partner",
+  "GalH1":"Our Premium Auto Workshop Gallery",
+  "Gallery":"Gallery",
+  "Feedback":"Give us your Feedback",
+  "Opinion":"Your Opinion Matters",
+
+  "branches": {
+    "jeddah": "Jeddah branch",
+    "riyadh": "Riyadh branch"
+  },
+  "contact": {
+    "companyNameArabic": "Zahrat Al Wafa Alarabia Company",
+    "jeddahEmail": "jeddah@zahrat-wafa.com",
+    "jeddahPhone": "+966 560608889",
+    "uan": "UAN NO: 920013239"
+  },
+  "servicesf": {
+    "s1":"Periodic Maintenance",
+    "s2":"General Repairs",
+    "s3":"Denting & Painting",
+    "s4": "Wax & Polish"
+  },
+  "mob_head": { 
+    "s1": "Job Information Form",
+    "s2": "Classification Form", 
+    "s3": "Register a Complaint", 
+    "s4": "Suggest Us",
+    "s5": "Job request",
+    "s6": "Career",
+    "s7":"Resources",
+    "s8":"Categories"
+
+},
+  "gallery":"Gallery",
+  "categories":"Categories",
+  "jobInformationForm": "Job Information Form",
+
+"fullName": "Full Name",
+  "contactNumber": "Contact Number",
+  "carModel": "Car Model",
+  "carMakeYear": "Car Make Year",
+  "typeOfServicePerformed": "Type of Service Performed",
+  "serviceDate": "Service Date",
+  "serviceCompletionDateOptional": "Service Completion Date (Optional)",
+  "technicianNameOptional": "Technician Name (Optional)",
+  "additionalComments": "Additional Comments",
+  "submit": "Submit",
+  "selectYear": "Select a year",
+
+
+  "selectServiceType": "Select a service type",
+  "carCollisionRepair": "Car Collision Repair",
+  "carDenting": "Car Denting",
+  "painting": "Painting",
+  "generalMaintenance": "General Maintenance",
+  "other": "Other",
+
+
+  "classificationForm": "Classification Form",
+  "emailAddress": "Email Address",
+  "classificationType": "Classification Type",
+  "description": "Description",
+  "customer": "Customer",
+  "vendor": "Vendor",
+  "employee": "Employee",
+  "selectType": "Select a type",
+   "complaintDescription": "Complaint Description",
+  "complaintForm": "Complaint Form",
+  "requestSubmitted": "Your request has been submitted successfully!",
+  "thankYouMessage": "Thank you for your submission. We will get back to you soon.",
+  "close": "Close",
+  "shareYourSuggestions": "Share Your Suggestions",
+  "suggestionType": "Suggestion Type",
+  "suggestionDetails": "Suggestion Details",
+
+  "select": "Select",
+  "serviceImprovement": "Service Improvement",
+  "productEnhancement": "Product Enhancement",
+  "customerService": "Customer Service",
+  "attachmentOptional": "Attachment (Optional)",
+  "servicePartner":"Service Partner",
+  "TermsConditions":"Terms & Conditions",
+  "termsp1":"All information and material on this website has been prepared for general informational purposes only and has been verified correct at the time of publication.",
+  "termsp2": "The Company shall not be responsible or liable for any loss, damage, personal injury, or death, however caused, whether due to negligence or otherwise, arising from the use of or reliance on any information or materials published on this website by any person.",
+"termsp3": "All information and material on this website are owned or licensed by us and may not be copied without prior written permission.",
+"termsp4": "You may view the content on a web browser and print copies for personal or non-commercial use.",
+"termsp5": "You may share any downloaded content with another person for their personal use, provided that the source of all such information and materials remains intact.",
+
+
+
+"privacyPolicy": "Privacy Policy",
+
+  "policyp1": "ZAHRAT AL WAFA is committed to protecting our visitors’ and members’ privacy. The following Privacy Policy outlines the information we may collect and how we may use that information to better serve visitors and members while using our website www.zahrat-wafa.com.",
+  
+  "policyp2": "By using our Website and Mobile Application, you agree to the terms of this privacy policy. Please review the following carefully so that you understand our privacy policy.",
+  
+  "policyp3": "If you have questions about this Privacy Policy, please contact us at support@zahrat-wafa.com.",
+  
+  "policyp4": "Users of the website should be aware that non-personal information and data may be automatically collected by virtue of the standard operation of the Company’s computer servers or through the use of “cookies”. Cookies are files that a website can use to recognize repeat users and allow the website to track web usage behavior.",
+  
+  "policyp5": "The use of third-party cookies is not covered by our Privacy Policy. We do not have access or control over these cookies.",
+  
+  "policyp6": "Our primary goal in collecting information is to provide you with an enhanced experience when using the service. We use this information to monitor which features are used most.",
+  
+  "policyp7": "We do not sell, rent, or trade your personal information. We may share aggregated information that includes non-identifying information and log data with third parties for industry analysis and demographic profiling.",
+  
+  "policyp8": "The personally identifiable and geo-location information we collect is securely stored within our database, and we use standard, industry-wide, commercially reasonable security practices such as encryption, firewalls, and SSL for protecting your information.",
+  
+  "policyp9": "We may update this privacy statement to reflect changes to our information practices. We encourage you to periodically review this page for the latest information on our privacy practices.",
+  "infoCollect": "Information we collect",
+  "useInfo": "How we use your information",
+  "disclosureInfo": "Our Disclosure of Your Information",
+  "security": "Security",
+  "changesPrivacyPolicy": "Changes in this Privacy Policy"
+
+
+        
+
+  }
