@@ -1,73 +1,193 @@
 import React, { useState } from 'react'
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+
+const mockCarStatus = {
+  model: 'Toyota Camry',
+  plate: 'XYZ 1234',
+  status: 'Ready for Pickup',
+  serviceDate: 'October 20, 2023',
+  location: 'Dubai, UAE',
+}
 
 const CarStatus = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [mobileNumber, setMobileNumber] = useState('')
+  const [step, setStep] = useState(1)
+  const [mobile, setMobile] = useState('')
+  const [otp, setOtp] = useState('')
+  const [sentOtp, setSentOtp] = useState('')
+  const [error, setError] = useState('')
+  const [carStatus, setCarStatus] = useState(null)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    alert(`Mobile number submitted: ${mobileNumber}`)
-    setIsOpen(false)
-    setMobileNumber('')
+  // Simulate sending OTP
+  const handleSendOtp = () => {
+    if (!/^\d{10,15}$/.test(mobile)) {
+      setError('Enter a valid mobile number')
+      return
+    }
+    setError('')
+    const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString()
+    setSentOtp(generatedOtp)
+    alert(`OTP sent: ${generatedOtp}`) // For demo only
+    setStep(2)
   }
 
-  return (
-    <div>
-      <button className='bg-orange-250 text-base md:text-md text-white-500 px-6 py-2 border-2 border-orange-250 hover:bg-white-500 hover:text-black-600 transition-all hover:shadow-orange'>
-        Car Status
-      </button>
+  // Simulate OTP verification
+  const handleVerifyOtp = () => {
+    if (otp !== sentOtp) {
+      setError('Invalid OTP')
+      return
+    }
+    setError('')
+    setCarStatus(mockCarStatus)
+    setStep(3)
+  }
 
-      {/* Popup Modal */}
-      {isOpen && (
-        <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999]'>
-          <div className='bg-white-500 rounded-lg p-0 w-10/12 max-w-2xl shadow-lg flex flex-col md:flex-row overflow-hidden'>
-            {/* Left: Image */}
-            <div className='md:w-1/2 w-full flex items-center justify-center bg-gray-100 p-4'>
-              <img
-                src='./app-icon/app1.png'
-                alt='Car Status'
-                className='object-cover rounded-lg w-full'
-              />
+  // UI rendering based on step
+  return (
+    <div
+      style={{
+        maxWidth: 400,
+        margin: '40px auto',
+        fontFamily: 'sans-serif',
+        background: '#fff',
+        borderRadius: 12,
+        boxShadow: '0 2px 12px #eee',
+        padding: 24,
+      }}
+    >
+      <h3 style={{ color: '#222', marginBottom: 8 }}>Zahrat Wafa Car Status</h3>
+      {step === 1 && (
+        <>
+          <label>Enter Mobile Number</label>
+          <input
+            type='text'
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value.replace(/\D/, ''))}
+            placeholder='Mobile Number'
+            style={{
+              width: '100%',
+              margin: '8px 0',
+              padding: 8,
+              borderRadius: 6,
+              border: '1px solid #ccc',
+            }}
+            maxLength={15}
+          />
+          <button
+            onClick={handleSendOtp}
+            style={{
+              width: '100%',
+              background: '#222',
+              color: '#fff',
+              padding: 10,
+              border: 0,
+              borderRadius: 6,
+              marginTop: 8,
+            }}
+          >
+            Send OTP
+          </button>
+          {error && <div style={{ color: 'red', marginTop: 8 }}>{error}</div>}
+        </>
+      )}
+
+      {step === 2 && (
+        <>
+          <label>OTP Verification</label>
+          <input
+            type='text'
+            value={otp}
+            onChange={(e) => setOtp(e.target.value.replace(/\D/, ''))}
+            placeholder='Enter OTP'
+            style={{
+              width: '100%',
+              margin: '8px 0',
+              padding: 8,
+              borderRadius: 6,
+              border: '1px solid #ccc',
+            }}
+            maxLength={4}
+          />
+          <button
+            onClick={handleVerifyOtp}
+            style={{
+              width: '100%',
+              background: '#222',
+              color: '#fff',
+              padding: 10,
+              border: 0,
+              borderRadius: 6,
+              marginTop: 8,
+            }}
+          >
+            Verify
+          </button>
+          <div
+            style={{ color: '#888', marginTop: 8, cursor: 'pointer' }}
+            onClick={() => setStep(1)}
+          >
+            Edit Mobile Number
+          </div>
+          {error && <div style={{ color: 'red', marginTop: 8 }}>{error}</div>}
+        </>
+      )}
+
+      {step === 3 && carStatus && (
+        <div style={{ textAlign: 'center' }}>
+          <img
+            src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'
+            alt='Car'
+            style={{ width: 120, margin: '0 auto 12px' }}
+          />
+          <h4>
+            Car Status:{' '}
+            <span style={{ color: '#16a085' }}>{carStatus.status}</span>
+          </h4>
+          <div style={{ margin: '12px 0' }}>
+            <div>
+              <b>Model:</b> {carStatus.model}
             </div>
-            {/* Right: Form */}
-            <div className='md:w-1/2 w-full p-6 flex flex-col justify-center'>
-              <h2 className='text-xl font-semibold mb-4'>
-                Enter Your Mobile Number
-              </h2>
-              <form onSubmit={handleSubmit}>
-                <PhoneInput
-                  country={'auto'}
-                  value={mobileNumber}
-                  onChange={setMobileNumber}
-                  inputClass='w-full px-4 py-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-orange-250'
-                  inputStyle={{ width: '100%' }}
-                  enableSearch={true}
-                  placeholder='Enter mobile number'
-                  // The flag and country code are shown by default
-                  // Auto country detection uses ipinfo.io by default
-                />
-                <div className='flex justify-end space-x-4 mt-4'>
-                  <button
-                    type='button'
-                    onClick={() => setIsOpen(false)}
-                    className='px-4 py-2 border-2 border-orange-250 text-orange-250 bg-gray-300 hover:bg-orange-250 hover:text-white-500'
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type='submit'
-                    className='px-6 py-2 bg-orange-250 text-white-500 hover:bg-orange-500'
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
+            <div>
+              <b>Plate Number:</b> {carStatus.plate}
+            </div>
+            <div>
+              <b>Service Date:</b> {carStatus.serviceDate}
+            </div>
+            <div>
+              <b>Location:</b> {carStatus.location}
             </div>
           </div>
         </div>
       )}
+
+      {/* Footer / Support */}
+      <div
+        style={{
+          borderTop: '1px solid #eee',
+          marginTop: 24,
+          paddingTop: 16,
+          fontSize: 14,
+          color: '#888',
+        }}
+      >
+        <div>Contact Support</div>
+        <div style={{ fontWeight: 'bold' }}>+1 234 567 890</div>
+        <div style={{ margin: '8px 0' }}>
+          <a
+            href='#'
+            style={{ color: '#222', textDecoration: 'none', marginRight: 12 }}
+          >
+            Go to Homepage
+          </a>
+          <span style={{ marginRight: 8 }}>
+            <i className='fa fa-twitter'></i>
+          </span>
+          <span style={{ marginRight: 8 }}>
+            <i className='fa fa-facebook'></i>
+          </span>
+          <span>
+            <i className='fa fa-instagram'></i>
+          </span>
+        </div>
+      </div>
     </div>
   )
 }

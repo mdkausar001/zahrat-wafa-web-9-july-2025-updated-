@@ -13,7 +13,7 @@ export default function RamadanPopup() {
 
   return (
     <div
-      className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center md:mt-10 top-2 md:top-0 md:m-4 m-8 sm:max-h-screen
+      className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center md:mt-10 top-2 md:top-0 md:m-4 m-6 sm:max-h-screen
     '
       style={{ zIndex: 9999 }}
     >

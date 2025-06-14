@@ -444,7 +444,7 @@ Resources      {/* Dropdown arrow */}
               {/* <CarStatus /> */}
 
               <Link href='/car-status'>
-                <button className='relative tracking-wide whitespace-nowrap outline-none capitalize bg-orange-250 hover:bg-orange-500 text-base md:text-md text-white-500 md:px-6 px-4 py-2 md:border-2 border border-orange-250  hover:text-white-500 transition-all hover:shadow-orange '>
+                <button className='relative tracking-wide whitespace-nowrap outline-none capitalize bg-orange-250 hover:bg-orange-350 text-base md:text-md text-white-500 md:px-6 px-4 py-2 md:border-2 border border-orange-250  hover:text-white-500 transition-all hover:shadow-orange '>
                   {/* Status Ping - top right corner */}
                   <span className='absolute -top-3 -right-3 flex  h-5 w-5'>
                     <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75'></span>
