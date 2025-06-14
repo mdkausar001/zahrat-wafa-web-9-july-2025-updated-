@@ -10,7 +10,7 @@ const mockCarStatus = {
 }
 
 const Header = () => (
-  <header className='w-full bg-white shadow-sm sticky'>
+  <header className='w-full bg-white-100 shadow-sm sticky top-0 z-50'>
     <div className='max-w-2xl mx-auto flex items-center justify-between px-4 py-3 gap-2'>
       <div className='flex gap-2'>
         <FaCar className='text-orange-250 text-2xl' />
@@ -171,7 +171,7 @@ const CarStatusForm = () => {
         </div>
       </main>
       <div className='flex items-center justify-center'>
-        <a href='#' className='text-yellow-600 hover:underline mb-2'>
+        <a href='/' className='text-yellow-600 hover:underline mb-2'>
           Go to Homepage
         </a>
       </div>
