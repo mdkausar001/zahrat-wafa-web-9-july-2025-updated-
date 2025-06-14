@@ -13,12 +13,12 @@ export default function RamadanPopup() {
 
   return (
     <div
-      className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center md:mt-10 top-2 md:top-0 m-4 sm:max-h-screen
+      className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center md:mt-10 top-2 md:top-0 md:m-4 m-8 sm:max-h-screen
     '
       style={{ zIndex: 9999 }}
     >
       <div
-        className='rounded-2xl shadow-lg p-2 md:p-4 max-w-3xl w-full relative md:h-auto'
+        className='rounded-2xl shadow-lg p-2 md:p-8 max-w-3xl w-full relative md:h-auto'
         style={{
           background: 'linear-gradient(135deg, #e0f2fe, #ffffff, #3b82f6)',
           border: '2px solid #3b82f6',
@@ -32,13 +32,11 @@ export default function RamadanPopup() {
         </button>
         <div className='flex flex-col md:flex-row items-center'>
           {/* Left Side: Mobile App Image */}
-          <div className='md:w-1/2 flex justify-center py-0 my-0'>
-            <Image
+          <div className='md:w-1/3 flex justify-center py-0 my-0'>
+            <img
               src='/app-icon/app1.png'
               alt='Mobile App'
-              width={250}
-              height={440}
-              className='rounded-lg shadow-md'
+              className='rounded-lg md:h-auto md:w-full h-[320px]'
               quality={100}
             />
           </div>
@@ -56,11 +54,10 @@ export default function RamadanPopup() {
                 rel='noopener noreferrer'
                 className='flex items-center text-base md:text-xl gap-2 md:px-4 px-2 md:py-2 py-1 border border-gray-300 rounded shadow-sm hover:bg-gray-100 transition'
               >
-                <Image
+                <img
                   src='/app-icon/App_Store_(iOS).svg'
                   alt='Apple Store'
-                  width={40}
-                  height={40}
+                  className='md:w-10 md:h-10 w-6 h-6'
                 />
                 <span className='text-sm md:text-lg'>App Store</span>
               </a>
@@ -70,11 +67,10 @@ export default function RamadanPopup() {
                 rel='noopener noreferrer'
                 className='flex items-center gap-2 md:px-4 md:py-2 px-2 py-1 border border-gray-300 rounded shadow-sm hover:bg-gray-100 transition'
               >
-                <Image
+                <img
                   src='/app-icon/google.svg'
                   alt='Google Play'
-                  width={40}
-                  height={40}
+                  className='md:w-10 md:h-10 w-6 h-6'
                 />
                 <span className='text-sm md:text-lg'>Google Play</span>
               </a>
