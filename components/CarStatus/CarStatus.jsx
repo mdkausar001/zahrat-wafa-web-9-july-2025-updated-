@@ -15,7 +15,7 @@ const CarStatus = () => {
 
   return (
     <div>
-      <button className='bg-orange-250 text-base md:text-md text-white-500 px-4 py-2 border-2 border-orange-250 hover:bg-white-500 hover:text-black-600 transition-all hover:shadow-orange'>
+      <button className='bg-orange-250 text-base md:text-md text-white-500 px-6 py-2 border-2 border-orange-250 hover:bg-white-500 hover:text-black-600 transition-all hover:shadow-orange'>
         Car Status
       </button>
 
