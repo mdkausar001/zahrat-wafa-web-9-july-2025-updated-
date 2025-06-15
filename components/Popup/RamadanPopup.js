@@ -18,7 +18,7 @@ export default function RamadanPopup() {
       style={{ zIndex: 9999 }}
     >
       <div
-        className='rounded-2xl shadow-lg p-2 md:p-8 max-w-3xl w-full relative md:h-auto'
+        className=' shadow-lg p-2 md:p-8 max-w-3xl w-full relative md:h-auto'
         style={{
           background: 'linear-gradient(135deg, #e0f2fe, #ffffff, #3b82f6)',
           border: '2px solid #3b82f6',
@@ -52,7 +52,7 @@ export default function RamadanPopup() {
                 href='https://apps.apple.com/in/app/zahrat-wafa/id6739617662'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='flex items-center text-base md:text-xl gap-2 md:px-4 px-2 md:py-2 py-1 border border-gray-300 rounded shadow-sm hover:bg-gray-100 transition'
+                className='flex items-center text-base md:text-xl gap-2 md:px-4 px-2 md:py-2 py-1 border border-gray-300  shadow-sm hover:bg-gray-100 transition'
               >
                 <img
                   src='/app-icon/App_Store_(iOS).svg'
@@ -65,7 +65,7 @@ export default function RamadanPopup() {
                 href='https://play.google.com/store/apps/details?id=com.app.zahrat_wafa'
                 target='_blank'
                 rel='noopener noreferrer'
-                className='flex items-center gap-2 md:px-4 md:py-2 px-2 py-1 border border-gray-300 rounded shadow-sm hover:bg-gray-100 transition'
+                className='flex items-center gap-2 md:px-4 md:py-2 px-2 py-1 border border-gray-300  shadow-sm hover:bg-gray-100 transition'
               >
                 <img
                   src='/app-icon/google.svg'

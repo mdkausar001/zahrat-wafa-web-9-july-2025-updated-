@@ -1,5 +1,23 @@
 import React, { useState } from 'react'
-import { FaCar, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import {
+  FaUser,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaCarSide,
+  FaCalendarAlt,
+  FaPalette,
+  FaHashtag,
+  FaListOl,
+  FaClipboardCheck,
+  FaRegClock,
+  FaClipboardList,
+  FaRegCalendarAlt,
+  FaUserCircle,
+  FaRegIdCard,
+  FaRegDotCircle,
+} from 'react-icons/fa'
 
 const mockCarStatus = {
   model: 'Toyota Camry',
@@ -26,7 +44,6 @@ const Footer = () => (
     <div className='max-w-2xl mx-auto px-4 py-6 flex flex-col items-center'>
       <div className='text-gray-700 font-medium mb-1'>Contact Support</div>
       <div className='text-lg font-bold text-gray-900 mb-1'>+1 234 567 890</div>
-
       <div className='flex space-x-4 mt-2'>
         <a href='#' className='text-gray-400 hover:text-yellow-600 transition'>
           <FaTwitter />
@@ -55,7 +72,7 @@ const CarStatusForm = () => {
 
   const handleSendOtp = (e) => {
     e.preventDefault()
-    if (!/^\d{10,15}$/.test(mobile)) {
+    if (!/^\d{9,12}$/.test(mobile)) {
       setError('Enter a valid mobile number')
       return
     }
@@ -79,103 +96,294 @@ const CarStatusForm = () => {
 
   return (
     <div className='min-h-screen flex flex-col bg-gray-50'>
-      <Header />
+      {/* <Header /> */}
 
-      <main className='flex-grow flex items-center justify-center px-2'>
-        <div className='w-full max-w-md md:max-w-lg lg:max-w-xl bg-white p-4 sm:p-6 md:p-8'>
-          {(step === 1 || step === 2) && (
-            <form onSubmit={step === 1 ? handleSendOtp : handleVerifyOtp}>
-              <label className='block text-gray-700 font-medium my-4'>
-                Enter Mobile Number
-              </label>
-              <input
-                type='tel'
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value.replace(/\D/, ''))}
-                placeholder='Mobile Number'
-                className='w-full px-4 py-2 border border-orange-250  bg-gray-50 text-gray-900 transition mb-4'
-                maxLength={15}
-                required
-                disabled={step === 2}
-              />
-
-              {step === 2 && (
-                <>
-                  <label className='block text-gray-700 font-medium mb-1'>
-                    OTP Verification
-                  </label>
-                  <input
-                    type='text'
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/, ''))}
-                    placeholder='Enter OTP'
-                    className='w-full px-4 py-2 border border-orange-250  text-gray-900 transition mb-4'
-                    maxLength={4}
-                    required
+      <main className='flex-grow flex items-center justify-center md:px-4 px-2 py-4'>
+        <div className='w-full max-w-md relative'>
+          {/* Glassmorphism Card */}
+          <div className='backdrop-blur-xl bg-white-500 rounded-2xl shadow-2xl md:p-8 flex flex-col items-center'>
+            {/* Form & Hero only on step 1 and 2 */}
+            {(step === 1 || step === 2) && (
+              <>
+                {/* Hero Car Illustration */}
+                <div className='w-full flex justify-center mb-2'>
+                  <img
+                    src='/carStatus.png'
+                    alt='Car'
+                    className='w-64 object-cover  md:mt-10'
                   />
-                </>
-              )}
-
-              <button
-                type='submit'
-                className='w-full flex justify-center my-1 items-center bg-orange-250 text-white-500 mt-4 hover:bg-red-250  font-semibold py-2  transition duration-100 shadow'
-              >
-                {step === 1 ? 'Send OTP' : 'Verify'}
-              </button>
-              {step === 2 && (
-                <div
-                  className='text-orange-600 text-sm mt-2 cursor-pointer hover:underline'
-                  onClick={() => setStep(1)}
+                </div>
+                <h1 className='text-2xl font-extrabold text-slate-800 text-center tracking-tight drop-shadow'>
+                  Check Your Car Status
+                </h1>
+                <p className='text-slate-600 text-center mb-4 text-sm md:text-lg'>
+                  Enter your mobile number, verify OTP, and see your car status
+                  instantly.
+                </p>
+                <form
+                  onSubmit={step === 1 ? handleSendOtp : handleVerifyOtp}
+                  className='w-full space-y-4'
                 >
-                  Edit Mobile Number
-                </div>
-              )}
-              {error && (
-                <div className='text-red-500 mt-2 text-sm'>{error}</div>
-              )}
-            </form>
-          )}
+                  <div className='mb-4 w-full'>
+                    <label className='block text-gray-700 font-semibold mb-2'>
+                      Mobile Number
+                    </label>
+                    <PhoneInput
+                      country={'sa'}
+                      value={mobile}
+                      onChange={setMobile}
+                      inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white !text-gray-900 focus:!ring-2 focus:!ring-orange-250 transition'
+                      buttonClass='!bg-white'
+                      containerClass='!w-full'
+                      inputProps={{
+                        name: 'mobile',
+                        required: true,
+                        disabled: step === 2,
+                      }}
+                      enableSearch
+                    />
+                  </div>
+                  {step === 2 && (
+                    <div>
+                      <label className='block text-gray-700 font-semibold mb-1'>
+                        OTP Verification
+                      </label>
+                      <div className='relative'>
+                        <input
+                          type='text'
+                          value={otp}
+                          onChange={(e) =>
+                            setOtp(e.target.value.replace(/\D/, ''))
+                          }
+                          placeholder='Enter OTP'
+                          className='w-full px-4 py-2 focus:ring-1 focus:ring-orange-250 border border-orange-250 transition'
+                          maxLength={4}
+                          required
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <button
+                    type='submit'
+                    className='w-full flex justify-center items-center bg-orange-250 text-white-500 font-bold py-2 shadow-lg transition-all duration-200 transform hover:scale-105'
+                  >
+                    {step === 1 ? 'Send OTP' : 'Verify'}
+                  </button>
+                  {step === 2 && (
+                    <div
+                      className='text-yellow-700 text-sm mt-2 cursor-pointer hover:underline'
+                      onClick={() => setStep(1)}
+                    >
+                      Edit Mobile Number
+                    </div>
+                  )}
+                  {error && (
+                    <div className='text-red-500 mt-2 text-sm'>{error}</div>
+                  )}
+                </form>
+              </>
+            )}
 
-          {step === 3 && carStatus && (
-            <div>
-              <div className='flex flex-col items-center mb-4'>
-                <img
-                  src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'
-                  alt='Car'
-                  className='w-28 h-20 object-cover mb-2'
-                />
-                <div className='text-lg font-semibold text-gray-800 mb-1'>
-                  Car Status:{' '}
-                  <span className='text-green-600'>{carStatus.status}</span>
+            {step === 3 && carStatus && (
+              <div className='w-full min-h-screen bg-white-500 pb-20'>
+                {/* Top Red Gradient & Car Illustration */}
+                <div className='bg-gradient-to-b from-[#e53935] to-[#e35d5b] pb-6 relative'>
+                  <div className='flex justify-center'>
+                    <img
+                      src='/carStatus.png'
+                      alt='Car'
+                      className='w-44 h-32 object-contain mt-14'
+                    />
+                  </div>
+                  <div className='text-center mt-2'>
+                    <div className='text-xl font-bold text-white tracking-wide'>
+                      6126 Rrd {carStatus.quotesNumber || 'Qt-007259'}
+                      <span className='ml-2 px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full font-semibold align-middle'>
+                        {carStatus.statusBadge || 'Not Updated'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Main Content */}
+                <div className='px-4 pt-4 pb-24'>
+                  {/* Description */}
+                  <div className='font-semibold text-gray-700 mb-1'>
+                    Description
+                  </div>
+                  <div className='mb-3 text-gray-500 text-sm'></div>
+
+                  {/* Customer Details */}
+                  <div className='font-semibold text-gray-700 mb-2'>
+                    Customer Details
+                  </div>
+                  <div className='space-y-3 mb-4'>
+                    <div className='bg-black-500 text-white-500 block rounded-xl p-3 mb-2'>
+                      <div className='flex items-center mb-1 '>
+                        <FaUser className='text-blue-400 mr-2 text-lg' />
+                        <span className='font-medium text-blue-700'>Name</span>
+                      </div>
+                      <div className='text-gray-900 text-base '>
+                        {carStatus.customerName || 'Tawuniya Cooperative.'}
+                      </div>
+                    </div>
+
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 mb-2'>
+                      <div className='flex items-center mb-1'>
+                        <FaMapMarkerAlt className='text-blue-400 mr-2 text-lg' />
+                        <span className='font-medium text-blue-700'>
+                          Location
+                        </span>
+                      </div>
+                      <div className='text-gray-900 text-base'>
+                        {carStatus.customerLocation ||
+                          'Riyadh Branch فرع الرياض'}
+                      </div>
+                    </div>
+
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 mb-2'>
+                      <div className='flex items-center mb-1'>
+                        <FaPhone className='text-blue-400 mr-2 text-lg' />
+                        <span className='font-medium text-blue-700'>Phone</span>
+                      </div>
+                      <div className='text-gray-900 text-base'>
+                        {carStatus.customerPhone || '555003398'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Vehicle Details */}
+                  <div className='font-semibold text-gray-700 mb-2'>
+                    Vehicle Details
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 mb-4'>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaUserCircle className='mr-2' /> Vehicle user
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.vehicleUser || 'MOUDI ALI MOHAMMED HARTHY'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaCarSide className='mr-2' /> Model
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.model || 'LEXUS-NX 300'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaCalendarAlt className='mr-2' /> Make Year
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.makeYear || '2020'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaPalette className='mr-2' /> Color
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.color || 'BLACK'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaHashtag className='mr-2' /> Chasis
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.chasis || 'JTJBARBZ5L2224053'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaListOl className='mr-2' /> Parts
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.parts || 'None'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaClipboardCheck className='mr-2' /> Claim
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.claim || '19111842/12/5463295'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaRegClock className='mr-2' /> ODOmeter
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.odometer || '130705'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Other Details */}
+                  <div className='font-semibold text-slate-700 mb-2'>
+                    Other Details
+                  </div>
+                  <div className='grid grid-cols-2 gap-2 mb-4'>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaClipboardList className='mr-2' /> Approval Status
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.approvalStatus || 'None'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaRegCalendarAlt className='mr-2' /> Approved Date
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.approvedDate || 'None'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaRegIdCard className='mr-2' /> Quotes Number
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.quotesNumber || 'QT-007259'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaUser className='mr-2' /> Client Source
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.clientSource || 'Tawuniya تأمين تعاونية'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaRegDotCircle className='mr-2' /> Days
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.days || '12'}
+                      </span>
+                    </div>
+                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                      <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
+                        <FaListOl className='mr-2' /> Job Ref
+                      </span>
+                      <span className='text-gray-900 text-sm'>
+                        {carStatus.jobRef || 'ZAH-2327'}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className='bg-gray-100  p-4 text-gray-700 mb-3'>
-                <div>
-                  <span className='font-medium'>Model:</span> {carStatus.model}
-                </div>
-                <div>
-                  <span className='font-medium'>Plate Number:</span>{' '}
-                  {carStatus.plate}
-                </div>
-                <div>
-                  <span className='font-medium'>Service Date:</span>{' '}
-                  {carStatus.serviceDate}
-                </div>
-                <div>
-                  <span className='font-medium'>Location:</span>{' '}
-                  {carStatus.location}
-                </div>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </main>
-      <div className='flex items-center justify-center'>
-        <a href='/' className='text-yellow-600 hover:underline mb-2'>
-          Go to Homepage
-        </a>
-      </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

@@ -6,9 +6,9 @@ import Layout from '../components/Layout/Layout'
 
 const CarStatus = () => {
   return (
-    // <Layout>
-    <CarStatusForm />
-    // </Layout>
+    <Layout>
+      <CarStatusForm />
+    </Layout>
   )
 }
 

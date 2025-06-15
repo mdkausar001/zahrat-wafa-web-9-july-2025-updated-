@@ -29,30 +29,34 @@
   }
    */
 
-   
-
-   /* styles/globals.css */
+/* styles/globals.css */
 .mySwiper {
-    /* Ensure the Swiper container has a fixed height or min-height */
-    height: auto;
-  }
-  
-  /* Adjust pagination and navigation styles if needed */
-  .swiper-pagination-bullet {
-    width: 16px;
-    height: 4px;
-    border-radius: 5px;
-    margin: 0 6px;
-  }
-  
-  .swiper-pagination-bullet-active {
-    background: #4F46E5;
-  }
-  
-  /* Ensure Swiper slides are properly spaced */
-  .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+  /* Ensure the Swiper container has a fixed height or min-height */
+  height: auto;
+}
+
+/* Adjust pagination and navigation styles if needed */
+.swiper-pagination-bullet {
+  width: 16px;
+  height: 4px;
+  border-radius: 5px;
+  margin: 0 6px;
+}
+
+.swiper-pagination-bullet-active {
+  background: #4f46e5;
+}
+
+/* Ensure Swiper slides are properly spaced */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-tel-input .form-control {
+  width: 100% !important;
+}
+.react-tel-input {
+  width: 100% !important;
+}
