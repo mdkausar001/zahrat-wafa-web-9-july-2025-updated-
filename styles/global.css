@@ -60,3 +60,10 @@
 .react-tel-input {
   width: 100% !important;
 }
+.react-tel-input .form-control {
+  border: 0px solid #ff4800 !important; /* Use your desired color code */
+}
+.react-tel-input {
+  border: 1px solid #ff4800 !important;
+  color: rgb(90, 90, 90);
+}

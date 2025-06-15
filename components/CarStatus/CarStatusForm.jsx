@@ -125,16 +125,16 @@ const CarStatusForm = () => {
                   className='w-full space-y-4'
                 >
                   <div className='mb-4 w-full'>
-                    <label className='block text-gray-700 font-semibold mb-2'>
+                    <label className='block text-slate-700 font-semibold mb-2'>
                       Mobile Number
                     </label>
                     <PhoneInput
                       country={'sa'}
                       value={mobile}
                       onChange={setMobile}
-                      inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white !text-gray-900 focus:!ring-2 focus:!ring-orange-250 transition'
+                      inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white !text-gray-900 transition'
                       buttonClass='!bg-white'
-                      containerClass='!w-full'
+                      containerClass='!w-full !border !border-orange-250'
                       inputProps={{
                         name: 'mobile',
                         required: true,
