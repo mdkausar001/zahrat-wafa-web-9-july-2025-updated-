@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import 'react-phone-input-2/lib/material.css'
 import 'react-phone-input-2/lib/plain.css';
 import 'react-phone-input-2/lib/bootstrap.css';
-
 
 import {
   FaUser,
@@ -33,40 +31,6 @@ const mockCarStatus = {
   location: 'Dubai, UAE',
 }
 
-const Header = () => (
-  <header className='w-full bg-white-100 shadow-sm sticky top-0 z-50'>
-    <div className='max-w-2xl mx-auto flex items-center justify-between px-4 py-3 gap-2'>
-      <div className='flex gap-2'>
-        <FaCar className='text-orange-250 text-2xl' />
-        <span className='font-bold text-orange-250 text-lg'>Zahrat Wafa</span>
-      </div>
-      <span className='ml-2 text-gray-700 font-semibold'>Car Status</span>
-    </div>
-  </header>
-)
-
-const Footer = () => (
-  <footer className='w-full bg-white-500 shadow-t mt-8'>
-    <div className='max-w-2xl mx-auto px-4 py-6 flex flex-col items-center'>
-      <div className='text-gray-700 font-medium mb-1'>Contact Support</div>
-      <div className='text-lg font-bold text-gray-900 mb-1'>+1 234 567 890</div>
-      <div className='flex space-x-4 mt-2'>
-        <a href='#' className='text-gray-400 hover:text-yellow-600 transition'>
-          <FaTwitter />
-        </a>
-        <a href='#' className='text-gray-400 hover:text-yellow-600 transition'>
-          <FaFacebook />
-        </a>
-        <a href='#' className='text-gray-400 hover:text-yellow-600 transition'>
-          <FaInstagram />
-        </a>
-      </div>
-      <div className='text-xs text-gray-400 mt-4'>
-        &copy; 2025 Zahrat Wafa Car Status. All rights reserved.
-      </div>
-    </div>
-  </footer>
-)
 
 const CarStatusForm = () => {
   const [step, setStep] = useState(1)
@@ -138,11 +102,9 @@ const CarStatusForm = () => {
                     country={'sa'}
                     value={mobile}
                     onChange={setMobile}
-                    inputStyle={{ width: '100%', border: '1px solid #fb923c' }}
-                    buttonStyle={{ background: '#fff' }}
                     inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white !text-gray-900 transition'
                     buttonClass='!bg-white'
-                    containerClass='!w-full !border !border-orange-250'
+                    containerClass='!w-full'
                     inputProps={{
                       name: 'mobile',
                       required: true,

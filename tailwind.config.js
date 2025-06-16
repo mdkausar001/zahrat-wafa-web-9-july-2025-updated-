@@ -1,9 +1,19 @@
 module.exports = {
+  // content: [
+  //   './pages/*.js',
+  //   './pages/**/*.js',
+  //   './components/*.js',
+  //   './components/**/*.js',
+  // ],.
   content: [
     './pages/*.js',
     './pages/**/*.js',
     './components/*.js',
     './components/**/*.js',
+    './pages/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    './src/**/*.{js,jsx,ts,tsx}',
+    './public/index.html',
   ],
   safelist: [
     'bg-clip-text',
@@ -43,7 +53,6 @@ module.exports = {
         500: '#F53855',
         250: '#ff4800',
         600: '#1e87f0',
-        
       },
       green: {
         500: '#2FAB73',
