@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+// import 'react-phone-input-2/lib/material.css'
 
 import {
   FaUser,
@@ -134,6 +135,8 @@ const CarStatusForm = () => {
                     country={'sa'}
                     value={mobile}
                     onChange={setMobile}
+                    inputStyle={{ width: '100%', border: '1px solid #fb923c' }}
+                    buttonStyle={{ background: '#fff' }}
                     inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white !text-gray-900 transition'
                     buttonClass='!bg-white'
                     containerClass='!w-full !border !border-orange-250'
