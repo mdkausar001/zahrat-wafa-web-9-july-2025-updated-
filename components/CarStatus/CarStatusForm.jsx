@@ -134,7 +134,7 @@ const CarStatusForm = () => {
                       onChange={setMobile}
                       inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white !text-gray-900 transition'
                       buttonClass='!bg-white'
-                      containerClass='!w-full !border !border-orange-250'
+                      containerClass='!w-full'
                       inputProps={{
                         name: 'mobile',
                         required: true,
