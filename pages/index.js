@@ -12,6 +12,7 @@ import ServicePartner from "../components/servicepartner";
 import Gallery from "../components/gallery";
 import Script from 'next/script'
 import Testimonial from "../components/newTestimonial";
+import 'react-phone-input-2/lib/style.css';
 
 // import FormComponent from "../components/webform";
 
