@@ -1,8 +1,10 @@
 import '../styles/tailwind.css'
 import '../styles/slick.css'
+import '../styles/global.css'
 import React from 'react'
 import 'react-phone-input-2/lib/style.css'
 import 'react-phone-input-2/lib/bootstrap.css'
+import 'react-phone-input-2/lib/plain.css'
 
 import { FormPopupProvider } from '../components/FormPopUpContext'
 // import { appWithTranslation } from '../next-i18next.config';
@@ -18,14 +20,17 @@ import RamadanPopup from '../components/Popup/RamadanPopup.js'
 // import 'swiper/swiper-bundle.min.css';
 // import 'swiper/swiper-bundle.min.css'; // Import Swiper styles
 
+if (typeof Intl === 'undefined') {
+  require('intl')
+}
+
 function MyApp({ Component, pageProps }) {
   // i18n.js
 
   // export default i18n;
-  if (typeof window !== "undefined") {
-  require('react-phone-input-2/lib/style.css');
-}
-
+  //   if (typeof window !== "undefined") {
+  //   require('react-phone-input-2/lib/style.css');
+  // }
 
   return (
     <FormPopupProvider>

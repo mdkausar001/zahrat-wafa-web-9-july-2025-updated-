@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import 'react-phone-input-2/lib/material.css'
-import 'react-phone-input-2/lib/plain.css';
-import 'react-phone-input-2/lib/bootstrap.css';
 
 import {
   FaUser,
@@ -31,7 +28,6 @@ const mockCarStatus = {
   location: 'Dubai, UAE',
 }
 
-
 const CarStatusForm = () => {
   const [step, setStep] = useState(1)
   const [mobile, setMobile] = useState('')
@@ -42,7 +38,7 @@ const CarStatusForm = () => {
 
   const handleSendOtp = (e) => {
     e.preventDefault()
-    if (!/^\d{9,12}$/.test(mobile)) {
+    if (!/^\d{10,15}$/.test(mobile)) {
       setError('Enter a valid mobile number')
       return
     }
@@ -102,7 +98,7 @@ const CarStatusForm = () => {
                     country={'sa'}
                     value={mobile}
                     onChange={setMobile}
-                    inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white !text-gray-900 transition'
+                    inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white-500 !text-gray-900 transition'
                     buttonClass='!bg-white'
                     containerClass='!w-full'
                     inputProps={{
