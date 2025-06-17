@@ -1,4 +1,4 @@
-import 'react-phone-input-2/lib/style.css' // Add this line at the top
+import 'react-international-phone/style.css'
 import Feature from '../components/Feature'
 import Pricing from '../components/Pricing'
 import Hero from '../components/Hero'

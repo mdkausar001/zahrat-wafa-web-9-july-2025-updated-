@@ -1,5 +1,4 @@
-import 'react-phone-input-2/lib/style.css'; // Add this line at the top
-
+import 'react-international-phone/style.css'
 import '../styles/tailwind.css'
 import '../styles/slick.css'
 import '../styles/global.css'
