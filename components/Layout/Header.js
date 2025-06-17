@@ -446,9 +446,9 @@ Resources      {/* Dropdown arrow */}
               <Link href='/car-status'>
                 <button className='relative tracking-wide whitespace-nowrap outline-none capitalize bg-orange-250 hover:bg-orange-350 text-base md:text-md text-white-500 md:px-6 px-4 py-2 md:border-2 border border-orange-250  hover:text-white-500 transition-all hover:shadow-orange '>
                   {/* Status Ping - top right corner */}
-                  <span className='absolute -top-3 -right-3 flex  h-5 w-5'>
+                  <span className='absolute md:-top-2 -top-1 -right-4 flex  h-5 w-5'>
                     <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75'></span>
-                    <span className='relative inline-flex rounded-full bg-green-500'></span>
+                    <span className='relative inline-flex items-center rounded-full bg-green-500 md:h-3 md:w-3 h-2 w-2'></span>
                   </span>
                   Car Status
                 </button>

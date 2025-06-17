@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PhoneInput from 'react-phone-input-2'
+// import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 import {
@@ -19,6 +19,7 @@ import {
   FaRegIdCard,
   FaRegDotCircle,
 } from 'react-icons/fa'
+import PhoneInput from '../PhoneInputWrapper'
 
 const mockCarStatus = {
   model: 'Toyota Camry',
@@ -74,9 +75,9 @@ const CarStatusForm = () => {
                 {/* Hero Car Illustration */}
                 <div className='w-full flex justify-center mb-2'>
                   <img
-                    src='/carStatus.png'
+                    src='/car-animation.gif'
                     alt='Car'
-                    className='w-64 object-cover  md:mt-10'
+                    className='w-72 object-cover  md:mt-10'
                   />
                 </div>
                 <h1 className='text-2xl font-extrabold text-slate-800 text-center tracking-tight drop-shadow'>
@@ -88,7 +89,7 @@ const CarStatusForm = () => {
                 </p>
                 <form
                   onSubmit={step === 1 ? handleSendOtp : handleVerifyOtp}
-                  className='w-full space-y-4'
+                  className='w-full space-y-4 px-1'
                 >
                   {/* <div className='mb-4 w-full'> */}
                   <label className='block text-slate-700 font-semibold mb-2'>
@@ -153,18 +154,18 @@ const CarStatusForm = () => {
             {step === 3 && carStatus && (
               <div className='w-full min-h-screen bg-white-500 pb-20'>
                 {/* Top Red Gradient & Car Illustration */}
-                <div className='bg-gradient-to-b from-[#e53935] to-[#e35d5b] pb-6 relative'>
+                <div className=' pb-4 relative'>
                   <div className='flex justify-center'>
                     <img
-                      src='/carStatus.png'
+                      src='/car-animation.gif'
                       alt='Car'
-                      className='w-44 h-32 object-contain mt-14'
+                      className='w-56 object-contain mt-14'
                     />
                   </div>
                   <div className='text-center mt-2'>
                     <div className='text-xl font-bold text-white tracking-wide'>
                       6126 Rrd {carStatus.quotesNumber || 'Qt-007259'}
-                      <span className='ml-2 px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full font-semibold align-middle'>
+                      <span className='ml-2 px-2 py-1 bg-green-500 text-white-100 text-xs rounded-full font-semibold align-middle'>
                         {carStatus.statusBadge || 'Not Updated'}
                       </span>
                     </div>
@@ -172,11 +173,11 @@ const CarStatusForm = () => {
                 </div>
 
                 {/* Main Content */}
-                <div className='px-4 pt-4 pb-24'>
+                <div className='px-2 pb-14'>
                   {/* Description */}
-                  <div className='font-semibold text-gray-700 mb-1'>
+                  {/* <div className='font-semibold text-gray-700 mb-1'>
                     Description
-                  </div>
+                  </div> */}
                   <div className='mb-3 text-gray-500 text-sm'></div>
 
                   {/* Customer Details */}
@@ -184,7 +185,7 @@ const CarStatusForm = () => {
                     Customer Details
                   </div>
                   <div className='space-y-3 mb-4'>
-                    <div className='bg-black-500 text-white-500 block rounded-xl p-3 mb-2'>
+                    <div className='bg-orange-250 text-white-500 block rounded-xl p-3 mb-2'>
                       <div className='flex items-center mb-1 '>
                         <FaUser className='text-blue-400 mr-2 text-lg' />
                         <span className='font-medium text-blue-700'>Name</span>
@@ -194,7 +195,7 @@ const CarStatusForm = () => {
                       </div>
                     </div>
 
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 mb-2'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 mb-2'>
                       <div className='flex items-center mb-1'>
                         <FaMapMarkerAlt className='text-blue-400 mr-2 text-lg' />
                         <span className='font-medium text-blue-700'>
@@ -207,7 +208,7 @@ const CarStatusForm = () => {
                       </div>
                     </div>
 
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 mb-2'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 mb-2'>
                       <div className='flex items-center mb-1'>
                         <FaPhone className='text-blue-400 mr-2 text-lg' />
                         <span className='font-medium text-blue-700'>Phone</span>
@@ -223,7 +224,7 @@ const CarStatusForm = () => {
                     Vehicle Details
                   </div>
                   <div className='grid grid-cols-2 gap-2 mb-4'>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaUserCircle className='mr-2' /> Vehicle user
                       </span>
@@ -231,7 +232,7 @@ const CarStatusForm = () => {
                         {carStatus.vehicleUser || 'MOUDI ALI MOHAMMED HARTHY'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaCarSide className='mr-2' /> Model
                       </span>
@@ -239,7 +240,7 @@ const CarStatusForm = () => {
                         {carStatus.model || 'LEXUS-NX 300'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaCalendarAlt className='mr-2' /> Make Year
                       </span>
@@ -247,7 +248,7 @@ const CarStatusForm = () => {
                         {carStatus.makeYear || '2020'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaPalette className='mr-2' /> Color
                       </span>
@@ -255,7 +256,7 @@ const CarStatusForm = () => {
                         {carStatus.color || 'BLACK'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaHashtag className='mr-2' /> Chasis
                       </span>
@@ -263,7 +264,7 @@ const CarStatusForm = () => {
                         {carStatus.chasis || 'JTJBARBZ5L2224053'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaListOl className='mr-2' /> Parts
                       </span>
@@ -271,7 +272,7 @@ const CarStatusForm = () => {
                         {carStatus.parts || 'None'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaClipboardCheck className='mr-2' /> Claim
                       </span>
@@ -279,7 +280,7 @@ const CarStatusForm = () => {
                         {carStatus.claim || '19111842/12/5463295'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaRegClock className='mr-2' /> ODOmeter
                       </span>
@@ -294,7 +295,7 @@ const CarStatusForm = () => {
                     Other Details
                   </div>
                   <div className='grid grid-cols-2 gap-2 mb-4'>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaClipboardList className='mr-2' /> Approval Status
                       </span>
@@ -302,7 +303,7 @@ const CarStatusForm = () => {
                         {carStatus.approvalStatus || 'None'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaRegCalendarAlt className='mr-2' /> Approved Date
                       </span>
@@ -310,7 +311,7 @@ const CarStatusForm = () => {
                         {carStatus.approvedDate || 'None'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaRegIdCard className='mr-2' /> Quotes Number
                       </span>
@@ -318,7 +319,7 @@ const CarStatusForm = () => {
                         {carStatus.quotesNumber || 'QT-007259'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaUser className='mr-2' /> Client Source
                       </span>
@@ -326,7 +327,7 @@ const CarStatusForm = () => {
                         {carStatus.clientSource || 'Tawuniya تأمين تعاونية'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaRegDotCircle className='mr-2' /> Days
                       </span>
@@ -334,7 +335,7 @@ const CarStatusForm = () => {
                         {carStatus.days || '12'}
                       </span>
                     </div>
-                    <div className='bg-black-500 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
+                    <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
                       <span className='flex items-center text-blue-700 font-medium mb-1 text-sm'>
                         <FaListOl className='mr-2' /> Job Ref
                       </span>
