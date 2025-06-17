@@ -1,10 +1,6 @@
-import React, { useState } from 'react'
-import dynamic from 'next/dynamic'
-import 'react-phone-input-2/lib/style.css'
-
-const PhoneInput = dynamic(() => import('react-phone-input-2'), {
-  ssr: false,
-})
+import { useState } from 'react'
+import { PhoneInput } from 'react-international-phone'
+import 'react-international-phone/style.css'
 
 import {
   FaUser,
@@ -42,7 +38,8 @@ const CarStatusForm = () => {
 
   const handleSendOtp = (e) => {
     e.preventDefault()
-    if (!/^\d{10,15}$/.test(mobile)) {
+    const cleanNumber = mobile.replace(/\D/g, '')
+    if (!/^\d{10,15}$/.test(cleanNumber)) {
       setError('Enter a valid mobile number')
       return
     }
@@ -68,17 +65,14 @@ const CarStatusForm = () => {
     <div className='min-h-screen flex flex-col bg-gray-50'>
       <main className='flex-grow flex items-center justify-center md:px-4 px-2 py-4'>
         <div className='w-full max-w-md relative'>
-          {/* Glassmorphism Card */}
           <div className='backdrop-blur-xl bg-white-500 rounded-2xl shadow-2xl md:p-8 flex flex-col items-center'>
-            {/* Form & Hero only on step 1 and 2 */}
             {(step === 1 || step === 2) && (
               <>
-                {/* Hero Car Illustration */}
                 <div className='w-full flex justify-center mb-2'>
                   <img
                     src='/car-animation.gif'
                     alt='Car'
-                    className='w-72 object-cover  md:mt-10'
+                    className='w-72 object-cover md:mt-10'
                   />
                 </div>
                 <h1 className='text-2xl font-extrabold text-slate-800 text-center tracking-tight drop-shadow'>
@@ -92,25 +86,17 @@ const CarStatusForm = () => {
                   onSubmit={step === 1 ? handleSendOtp : handleVerifyOtp}
                   className='w-full space-y-4 px-1'
                 >
-                  {/* <div className='mb-4 w-full'> */}
                   <label className='block text-slate-700 font-semibold mb-2'>
                     Mobile Number
                   </label>
                   <PhoneInput
-                    country={'sa'}
+                    defaultCountry='sa'
                     value={mobile}
                     onChange={setMobile}
-                    inputClass='!w-full !pr-4 !py-3 !text-xl !border !border-orange-250 !bg-white-500 !text-gray-900 transition'
-                    buttonClass='!bg-white'
-                    containerClass='!w-full'
-                    inputProps={{
-                      name: 'mobile',
-                      required: true,
-                      disabled: step === 2,
-                    }}
-                    enableSearch
+                    disabled={step === 2}
+                    inputClassName='!w-full !py-3 !px-4 !text-xl !border !border-orange-250 !bg-white-500 !text-gray-900'
                   />
-                  {/* </div> */}
+
                   {step === 2 && (
                     <div>
                       <label className='block text-gray-700 font-semibold mb-1'>
@@ -152,10 +138,10 @@ const CarStatusForm = () => {
               </>
             )}
 
+            {/* Car status step (step === 3) remains unchanged */}
             {step === 3 && carStatus && (
               <div className='w-full min-h-screen bg-white-500 pb-20'>
-                {/* Top Red Gradient & Car Illustration */}
-                <div className=' pb-4 relative'>
+                <div className='pb-4 relative'>
                   <div className='flex justify-center'>
                     <img
                       src='/car-animation.gif'
