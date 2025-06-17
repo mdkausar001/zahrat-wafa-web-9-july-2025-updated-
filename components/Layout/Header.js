@@ -22,7 +22,6 @@ import LanguageSwitcher from '../Arabicswitch/arabic'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import BottomNavigation from './bottom-navigation/bottom-navigation/BottomNavigation'
-import CarStatus from '../CarStatus/CarStatus'
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState(null)

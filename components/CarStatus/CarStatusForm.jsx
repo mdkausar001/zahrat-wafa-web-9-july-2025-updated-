@@ -94,7 +94,7 @@ const CarStatusForm = () => {
                     value={mobile}
                     onChange={setMobile}
                     disabled={step === 2}
-                    inputClassName='!w-full !py-3 !px-4 !text-xl !border !border-orange-250 !bg-white-500 !text-gray-900'
+                    inputClassName='!w-full !py-3 !px-4 !text-xl !border !border-gray-400 !bg-white-500 !text-gray-900'
                   />
 
                   {step === 2 && (
