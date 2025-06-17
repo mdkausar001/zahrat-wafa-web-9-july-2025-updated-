@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
 
@@ -35,6 +35,39 @@ const CarStatusForm = () => {
   const [sentOtp, setSentOtp] = useState('')
   const [error, setError] = useState('')
   const [carStatus, setCarStatus] = useState(null)
+  const [countryCode, setCountryCode] = useState('+91')
+
+  const handleNumberChange = (e) => {
+    const input = e.target.value.replace(/\D/g, '') // Remove non-digits
+    if (input.length <= 12) {
+      setMobile(input)
+    }
+  }
+
+  const countryDialMap = {
+    SA: '+966',
+    IN: '+91',
+    AE: '+971',
+    US: '+1',
+    // Add more as needed
+  }
+
+  useEffect(() => {
+    const detectCountryCode = async () => {
+      try {
+        const res = await fetch('https://ipapi.co/json/')
+        const data = await res.json()
+        const dial = countryDialMap[data.country_code]
+        if (dial) {
+          setCountryCode(dial)
+        }
+      } catch (err) {
+        console.warn('Could not detect location. Defaulting to +91')
+      }
+    }
+
+    detectCountryCode()
+  }, [])
 
   const handleSendOtp = (e) => {
     e.preventDefault()
@@ -63,7 +96,7 @@ const CarStatusForm = () => {
 
   return (
     <div className='min-h-screen flex flex-col bg-gray-50'>
-      <main className='flex-grow flex items-center justify-center md:px-4 px-2 py-4'>
+      <main className='flex-grow flex items-center justify-center md:px-4 px-2 py-4 pb-4'>
         <div className='w-full max-w-md relative'>
           <div className='backdrop-blur-xl bg-white-500 rounded-2xl shadow-2xl md:p-8 flex flex-col items-center'>
             {(step === 1 || step === 2) && (
@@ -72,15 +105,15 @@ const CarStatusForm = () => {
                   <img
                     src='/car-animation.gif'
                     alt='Car'
-                    className='w-72 object-cover md:mt-10'
+                    className='w-full object-contain md:mt-6 mt-10'
                   />
                 </div>
-                <h1 className='text-2xl font-extrabold text-slate-800 text-center tracking-tight drop-shadow'>
+                <h1 className='text-3xl font-extrabold text-slate-700 text-center tracking-tight drop-shadow'>
                   Check Your Car Status
                 </h1>
                 <p className='text-slate-600 text-center mb-4 text-sm md:text-lg'>
-                  Enter your mobile number, verify OTP, and see your car status
-                  instantly.
+                  Enter your mobile number, verify OTP, <br></br>and see your
+                  car status instantly.
                 </p>
                 <form
                   onSubmit={step === 1 ? handleSendOtp : handleVerifyOtp}
@@ -89,38 +122,35 @@ const CarStatusForm = () => {
                   <label className='block text-slate-700 font-semibold mb-2'>
                     Mobile Number
                   </label>
-                  <div className='flex items-center space-x-2 border border-orange-250'>
+                  <div className='flex flex-wrap sm:flex-nowrap items-center gap-2 border border-orange-250 md:py-1 px-2 w-full'>
                     <select
-                      value={mobile.startsWith('+966') ? '+966' : '+91'}
-                      onChange={(e) =>
-                        setMobile(e.target.value + mobile.replace(/^\+\d+/, ''))
-                      }
-                      className='p-2  bg-white-500 text-gray-900 outline-none'
+                      value={countryCode}
+                      onChange={(e) => setCountryCode(e.target.value)}
+                      className='p-2 bg-white text-slate-800 outline-none rounded-md min-w-[60px]'
                     >
                       <option value='+966'>🇸🇦 +966</option>
                       <option value='+91'>🇮🇳 +91</option>
                       <option value='+971'>🇦🇪 +971</option>
-                      {/* Add more as needed */}
+                      {/* Add more if needed */}
                     </select>
+
                     <input
                       type='tel'
-                      value={mobile.replace(/^\+\d+/, '')}
-                      onChange={(e) =>
-                        setMobile(
-                          (mobile.match(/^\+\d+/)?.[0] || '+966') +
-                            e.target.value
-                        )
-                      }
+                      inputMode='numeric'
+                      pattern='[0-9]*'
+                      value={mobile}
+                      onChange={handleNumberChange}
                       placeholder='Enter Mobile Number'
-                      className='flex-1 px-4 py-2 text-xl  bg-white-500 text-gray-900 transition outline-none'
-                      maxLength={15}
+                      className='flex-1 min-w-[120px] w-full px-4 py-2 text-base text-slate-800 outline-none rounded-md'
+                      minLength={9}
+                      maxLength={12}
                       required
                     />
                   </div>
 
                   {step === 2 && (
                     <div>
-                      <label className='block text-gray-700 font-semibold mb-1'>
+                      <label className='block text-slate-700 font-semibold mb-1'>
                         OTP Verification
                       </label>
                       <div className='relative'>
@@ -131,7 +161,7 @@ const CarStatusForm = () => {
                             setOtp(e.target.value.replace(/\D/, ''))
                           }
                           placeholder='Enter OTP'
-                          className='w-full px-4 py-2 focus:ring-1 focus:ring-orange-250 border border-orange-250 transition'
+                          className='w-full px-4 py-2 focus:ring-1 outline-none focus:ring-orange-250 border border-orange-250 text-slate-800 transition'
                           maxLength={4}
                           required
                         />
@@ -146,7 +176,7 @@ const CarStatusForm = () => {
                   </button>
                   {step === 2 && (
                     <div
-                      className='text-yellow-700 text-sm mt-2 cursor-pointer hover:underline'
+                      className='text-slate-700 text-sm mt-2 cursor-pointer hover:underline'
                       onClick={() => setStep(1)}
                     >
                       Edit Mobile Number
@@ -167,7 +197,7 @@ const CarStatusForm = () => {
                     <img
                       src='/car-animation.gif'
                       alt='Car'
-                      className='w-56 object-contain mt-14'
+                      className='w-full object-contain mt-14'
                     />
                   </div>
                   <div className='text-center mt-2'>
