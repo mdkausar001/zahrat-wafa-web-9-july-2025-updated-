@@ -21,7 +21,6 @@ import {
   FaRegIdCard,
   FaRegDotCircle,
 } from 'react-icons/fa'
-import PhoneInput from '../PhoneInputWrapper'
 
 const mockCarStatus = {
   model: 'Toyota Camry',
