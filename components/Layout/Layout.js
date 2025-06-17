@@ -5,7 +5,7 @@ import Header from './Header'
 // import Footer from "./Footer";
 import { useTranslation } from 'react-i18next'
 import { I18nextProvider } from 'react-i18next'
-import './globals.css';
+import '../../styles/global.css';
 
 const Layout = ({ children }) => {
   const { i18n } = useTranslation()
