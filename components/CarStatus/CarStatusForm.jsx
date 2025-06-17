@@ -28,6 +28,14 @@ const mockCarStatus = {
   location: 'Dubai, UAE',
 }
 
+const countryDialMap = {
+  SA: '+966',
+  IN: '+91',
+  AE: '+971',
+  US: '+1',
+  // Add more as needed
+}
+
 const CarStatusForm = () => {
   const [step, setStep] = useState(1)
   const [mobile, setMobile] = useState('')
@@ -42,14 +50,6 @@ const CarStatusForm = () => {
     if (input.length <= 12) {
       setMobile(input)
     }
-  }
-
-  const countryDialMap = {
-    SA: '+966',
-    IN: '+91',
-    AE: '+971',
-    US: '+1',
-    // Add more as needed
   }
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const CarStatusForm = () => {
   const handleSendOtp = (e) => {
     e.preventDefault()
     const cleanNumber = mobile.replace(/\D/g, '')
-    if (!/^\d{10,15}$/.test(cleanNumber)) {
+    if (!/^\d{9,12}$/.test(cleanNumber)) {
       setError('Enter a valid mobile number')
       return
     }
@@ -111,7 +111,7 @@ const CarStatusForm = () => {
                 <h1 className='text-3xl font-extrabold text-slate-700 text-center tracking-tight drop-shadow'>
                   Check Your Car Status
                 </h1>
-                <p className='text-slate-600 text-center mb-4 text-sm md:text-lg'>
+                <p className='text-slate-600 text-center mb-2 text-sm md:text-lg'>
                   Enter your mobile number, verify OTP, <br></br>and see your
                   car status instantly.
                 </p>
@@ -119,18 +119,20 @@ const CarStatusForm = () => {
                   onSubmit={step === 1 ? handleSendOtp : handleVerifyOtp}
                   className='w-full space-y-4 px-1'
                 >
-                  <label className='block text-slate-700 font-semibold mb-2'>
+                  <label className='block text-slate-700 font-semibold '>
                     Mobile Number
                   </label>
                   <div className='flex flex-wrap sm:flex-nowrap items-center gap-2 border border-orange-250 md:py-1 px-2 w-full'>
                     <select
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
-                      className='p-2 bg-white text-slate-800 outline-none rounded-md min-w-[60px]'
+                      className='p-2 bg-white text-slate-700 outline-none rounded-md min-w-[60px]'
                     >
-                      <option value='+966'>🇸🇦 +966</option>
-                      <option value='+91'>🇮🇳 +91</option>
-                      <option value='+971'>🇦🇪 +971</option>
+                      <option value='+966'>SA +966</option>
+                      <option value='+91'>IN +91</option>
+                      <option value='+971'>AE +971</option>
+                      <option value='+971'>US +1</option>
+                      <option value='+971'>UK +44</option>
                       {/* Add more if needed */}
                     </select>
 
@@ -140,8 +142,8 @@ const CarStatusForm = () => {
                       pattern='[0-9]*'
                       value={mobile}
                       onChange={handleNumberChange}
-                      placeholder='Enter Mobile Number'
-                      className='flex-1 min-w-[120px] w-full px-4 py-2 text-base text-slate-800 outline-none rounded-md'
+                      placeholder='559034101'
+                      className='flex-1 min-w-[120px] w-full px-1 py-2 text-base text-slate-700 outline-none rounded-md'
                       minLength={9}
                       maxLength={12}
                       required
@@ -168,31 +170,33 @@ const CarStatusForm = () => {
                       </div>
                     </div>
                   )}
+
+                  {/* Edit Mobile number */}
+                  {step === 2 && (
+                    <div
+                      className='text-slate-700 text-sm cursor-pointer hover:underline'
+                      onClick={() => setStep(1)}
+                    >
+                      Edit Mobile Number
+                    </div>
+                  )}
+
+                  {/* Error message */}
+                  {error && <div className='text-red-500 text-sm'>{error}</div>}
                   <button
                     type='submit'
                     className='w-full flex justify-center items-center bg-orange-250 text-white-500 font-bold py-2 shadow-lg transition-all duration-200 transform hover:scale-105'
                   >
                     {step === 1 ? 'Send OTP' : 'Verify'}
                   </button>
-                  {step === 2 && (
-                    <div
-                      className='text-slate-700 text-sm mt-2 cursor-pointer hover:underline'
-                      onClick={() => setStep(1)}
-                    >
-                      Edit Mobile Number
-                    </div>
-                  )}
-                  {error && (
-                    <div className='text-red-500 mt-2 text-sm'>{error}</div>
-                  )}
                 </form>
               </>
             )}
 
             {/* Car status step (step === 3) remains unchanged */}
             {step === 3 && carStatus && (
-              <div className='w-full min-h-screen bg-white-500 pb-20'>
-                <div className='pb-4 relative'>
+              <div className='w-full min-h-screen bg-white-500 pb-4'>
+                <div className='relative'>
                   <div className='flex justify-center'>
                     <img
                       src='/car-animation.gif'
@@ -212,10 +216,6 @@ const CarStatusForm = () => {
 
                 {/* Main Content */}
                 <div className='px-2 pb-14'>
-                  {/* Description */}
-                  {/* <div className='font-semibold text-gray-700 mb-1'>
-                    Description
-                  </div> */}
                   <div className='mb-3 text-gray-500 text-sm'></div>
 
                   {/* Customer Details */}
