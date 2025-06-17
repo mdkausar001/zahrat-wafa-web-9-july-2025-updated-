@@ -89,13 +89,34 @@ const CarStatusForm = () => {
                   <label className='block text-slate-700 font-semibold mb-2'>
                     Mobile Number
                   </label>
-                  <PhoneInput
-                    defaultCountry='sa'
-                    value={mobile}
-                    onChange={setMobile}
-                    disabled={step === 2}
-                    inputClassName='!w-full !py-3 !px-4 !text-xl !border !border-gray-400 !bg-white-500 !text-gray-900'
-                  />
+                  <div className='flex items-center space-x-2 border border-orange-250'>
+                    <select
+                      value={mobile.startsWith('+966') ? '+966' : '+91'}
+                      onChange={(e) =>
+                        setMobile(e.target.value + mobile.replace(/^\+\d+/, ''))
+                      }
+                      className='p-2  bg-white-500 text-gray-900 outline-none'
+                    >
+                      <option value='+966'>🇸🇦 +966</option>
+                      <option value='+91'>🇮🇳 +91</option>
+                      <option value='+971'>🇦🇪 +971</option>
+                      {/* Add more as needed */}
+                    </select>
+                    <input
+                      type='tel'
+                      value={mobile.replace(/^\+\d+/, '')}
+                      onChange={(e) =>
+                        setMobile(
+                          (mobile.match(/^\+\d+/)?.[0] || '+966') +
+                            e.target.value
+                        )
+                      }
+                      placeholder='Enter Mobile Number'
+                      className='flex-1 px-4 py-2 text-xl  bg-white-500 text-gray-900 transition outline-none'
+                      maxLength={15}
+                      required
+                    />
+                  </div>
 
                   {step === 2 && (
                     <div>
