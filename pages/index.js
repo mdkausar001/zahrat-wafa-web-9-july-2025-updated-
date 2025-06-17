@@ -1,24 +1,22 @@
-import Feature from "../components/Feature";
-import Pricing from "../components/Pricing";
-import Hero from "../components/Hero";
-import Layout from "../components/Layout/Layout";
-import SeoHead from "../components/SeoHead";
-import Client from "../components/client";
-import WhatsaApp from "../components/whatsapp";
-import Testimoni from "../components/Testimoni";
-import FormComponent from "../components/form";
-import FAQs from "../components/faqs";
-import ServicePartner from "../components/servicepartner";
-import Gallery from "../components/gallery";
+import 'react-phone-input-2/lib/style.css' // Add this line at the top
+import Feature from '../components/Feature'
+import Pricing from '../components/Pricing'
+import Hero from '../components/Hero'
+import Layout from '../components/Layout/Layout'
+import SeoHead from '../components/SeoHead'
+import Client from '../components/client'
+import WhatsaApp from '../components/whatsapp'
+import Testimoni from '../components/Testimoni'
+import FormComponent from '../components/form'
+import FAQs from '../components/faqs'
+import ServicePartner from '../components/servicepartner'
+import Gallery from '../components/gallery'
 import Script from 'next/script'
-import Testimonial from "../components/newTestimonial";
-import 'react-phone-input-2/lib/style.css';
+import Testimonial from '../components/newTestimonial'
 
 // import FormComponent from "../components/webform";
 
 // import FormComponent from "../components/phform";
-
-
 
 export default function Home() {
   return (
@@ -43,20 +41,19 @@ export default function Home() {
         `}
       </Script> */}
       <Layout>
-        <WhatsaApp/>
+        <WhatsaApp />
         <Hero />
-        <ServicePartner/>
-        <Client/>
+        <ServicePartner />
+        <Client />
         {/* <Feature /> */}
         <Pricing />
         {/* <Testimonial/> */}
 
-        <Testimoni/>
-        <FormComponent/>
-        <FAQs/>
+        <Testimoni />
+        <FormComponent />
+        <FAQs />
         {/* <Gallery/> */}
-
       </Layout>
     </>
-  );
+  )
 }

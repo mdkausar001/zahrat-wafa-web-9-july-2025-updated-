@@ -1,10 +1,9 @@
+import 'react-phone-input-2/lib/style.css'; // Add this line at the top
+
 import '../styles/tailwind.css'
 import '../styles/slick.css'
 import '../styles/global.css'
 import React from 'react'
-import 'react-phone-input-2/lib/style.css'
-import 'react-phone-input-2/lib/bootstrap.css'
-import 'react-phone-input-2/lib/plain.css'
 
 import { FormPopupProvider } from '../components/FormPopUpContext'
 // import { appWithTranslation } from '../next-i18next.config';

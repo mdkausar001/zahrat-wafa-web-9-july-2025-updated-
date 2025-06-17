@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import 'react-phone-input-2/lib/style.css'
 
-const PhoneInput = dynamic(() => import('react-phone-input-2'), { ssr: false })
+const PhoneInput = dynamic(() => import('react-phone-input-2'), {
+  ssr: false,
+})
 
 import {
   FaUser,
