@@ -142,7 +142,7 @@ const CarStatusForm = () => {
                       pattern='[0-9]*'
                       value={mobile}
                       onChange={handleNumberChange}
-                      placeholder='559034101'
+                      placeholder='5590 34101'
                       className='flex-1 min-w-[120px] w-full px-1 py-2 text-base text-slate-700 outline-none rounded-md'
                       minLength={9}
                       maxLength={9}
