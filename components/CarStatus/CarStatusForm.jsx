@@ -43,7 +43,7 @@ const CarStatusForm = () => {
   const [sentOtp, setSentOtp] = useState('')
   const [error, setError] = useState('')
   const [carStatus, setCarStatus] = useState(null)
-  const [countryCode, setCountryCode] = useState('+91')
+  const [countryCode, setCountryCode] = useState('+966')
 
   const handleNumberChange = (e) => {
     const input = e.target.value.replace(/\D/g, '') // Remove non-digits
@@ -145,7 +145,7 @@ const CarStatusForm = () => {
                       placeholder='559034101'
                       className='flex-1 min-w-[120px] w-full px-1 py-2 text-base text-slate-700 outline-none rounded-md'
                       minLength={9}
-                      maxLength={12}
+                      maxLength={9}
                       required
                     />
                   </div>
