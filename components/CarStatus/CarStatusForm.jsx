@@ -20,14 +20,6 @@ import {
   FaRegDotCircle,
 } from 'react-icons/fa'
 
-const mockCarStatus = {
-  model: 'Toyota Camry',
-  plate: 'XYZ 1234',
-  status: 'Ready for Pickup',
-  serviceDate: 'October 20, 2023',
-  location: 'Dubai, UAE',
-}
-
 const CarStatusForm = () => {
   const [step, setStep] = useState(1)
   const [mobile, setMobile] = useState('')
@@ -82,7 +74,7 @@ const CarStatusForm = () => {
       return
     }
     setError('')
-    setCarStatus(mockCarStatus)
+    // setCarStatus(mockCarStatus)
     setStep(3)
   }
 
@@ -243,7 +235,7 @@ const CarStatusForm = () => {
                         <span className='font-medium text-blue-700'>Phone</span>
                       </div>
                       <div className='text-gray-900 text-base'>
-                        {carStatus.cf_user_number || '123456789'}
+                        +966 {carStatus.cf_user_number || '123456789'}
                       </div>
                     </div>
                   </div>
