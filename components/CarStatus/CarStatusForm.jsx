@@ -28,14 +28,6 @@ const mockCarStatus = {
   location: 'Dubai, UAE',
 }
 
-const countryDialMap = {
-  SA: '+966',
-  IN: '+91',
-  AE: '+971',
-  US: '+1',
-  // Add more as needed
-}
-
 const CarStatusForm = () => {
   const [step, setStep] = useState(1)
   const [mobile, setMobile] = useState('')
@@ -44,6 +36,7 @@ const CarStatusForm = () => {
   const [error, setError] = useState('')
   const [carStatus, setCarStatus] = useState(null)
   const [countryCode, setCountryCode] = useState('+966')
+  const [loading, setLoading] = useState(false)
 
   const handleNumberChange = (e) => {
     const input = e.target.value.replace(/\D/g, '') // Remove non-digits
@@ -52,24 +45,7 @@ const CarStatusForm = () => {
     }
   }
 
-  useEffect(() => {
-    const detectCountryCode = async () => {
-      try {
-        const res = await fetch('https://ipapi.co/json/')
-        const data = await res.json()
-        const dial = countryDialMap[data.country_code]
-        if (dial) {
-          setCountryCode(dial)
-        }
-      } catch (err) {
-        console.warn('Could not detect location. Defaulting to +91')
-      }
-    }
-
-    detectCountryCode()
-  }, [])
-
-  const handleSendOtp = (e) => {
+  const handleSendOtp = async (e) => {
     e.preventDefault()
     const cleanNumber = mobile.replace(/\D/g, '')
     if (!/^\d{9,12}$/.test(cleanNumber)) {
@@ -77,10 +53,26 @@ const CarStatusForm = () => {
       return
     }
     setError('')
-    const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString()
-    setSentOtp(generatedOtp)
-    alert(`OTP sent: ${generatedOtp}`)
-    setStep(2)
+    setLoading(true)
+    try {
+      // New (call your own backend)
+      const response = await fetch(`/api/car-status?mobile=${cleanNumber}`)
+      const zohoData = await response.json()
+      if (!zohoData.projects || zohoData.projects.length === 0) {
+        setError('User not found')
+        return
+      }
+      setCarStatus(zohoData.projects[0])
+      console.log(zohoData.projects[0])
+      const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString()
+      setSentOtp(generatedOtp)
+      alert(`OTP sent: ${generatedOtp}`)
+      setStep(2)
+      setLoading(false)
+    } catch (err) {
+      setError('Error connecting to server. Please try again.')
+    }
+    setLoading(false)
   }
 
   const handleVerifyOtp = (e) => {
@@ -206,9 +198,9 @@ const CarStatusForm = () => {
                   </div>
                   <div className='text-center mt-2'>
                     <div className='text-xl font-bold text-white tracking-wide'>
-                      6126 Rrd {carStatus.quotesNumber || 'Qt-007259'}
+                      {carStatus.cf_quotes_number || 'Qt-007259'}
                       <span className='ml-2 px-2 py-1 bg-green-500 text-white-100 text-xs rounded-full font-semibold align-middle'>
-                        {carStatus.statusBadge || 'Not Updated'}
+                        {carStatus.status || 'Not Updated'}
                       </span>
                     </div>
                   </div>
@@ -229,7 +221,7 @@ const CarStatusForm = () => {
                         <span className='font-medium text-blue-700'>Name</span>
                       </div>
                       <div className='text-gray-900 text-base '>
-                        {carStatus.customerName || 'Tawuniya Cooperative.'}
+                        {carStatus.customer_name || 'Dummy Cooperative.'}
                       </div>
                     </div>
 
@@ -241,8 +233,7 @@ const CarStatusForm = () => {
                         </span>
                       </div>
                       <div className='text-gray-900 text-base'>
-                        {carStatus.customerLocation ||
-                          'Riyadh Branch فرع الرياض'}
+                        {carStatus.cf_branch || 'Dummy Branch فرع الرياض'}
                       </div>
                     </div>
 
@@ -252,7 +243,7 @@ const CarStatusForm = () => {
                         <span className='font-medium text-blue-700'>Phone</span>
                       </div>
                       <div className='text-gray-900 text-base'>
-                        {carStatus.customerPhone || '555003398'}
+                        {carStatus.cf_user_number || '123456789'}
                       </div>
                     </div>
                   </div>
@@ -267,7 +258,7 @@ const CarStatusForm = () => {
                         <FaUserCircle className='mr-2' /> Vehicle user
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.vehicleUser || 'MOUDI ALI MOHAMMED HARTHY'}
+                        {carStatus.cf_vehicle_user || 'DUMMY CAR'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -275,7 +266,7 @@ const CarStatusForm = () => {
                         <FaCarSide className='mr-2' /> Model
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.model || 'LEXUS-NX 300'}
+                        {carStatus.cf_model || 'DUMMY-XY 300'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -283,7 +274,7 @@ const CarStatusForm = () => {
                         <FaCalendarAlt className='mr-2' /> Make Year
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.makeYear || '2020'}
+                        {carStatus.cf_make_year || '2025'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -291,7 +282,7 @@ const CarStatusForm = () => {
                         <FaPalette className='mr-2' /> Color
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.color || 'BLACK'}
+                        {carStatus.cf_color || 'BLACK'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -299,7 +290,7 @@ const CarStatusForm = () => {
                         <FaHashtag className='mr-2' /> Chasis
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.chasis || 'JTJBARBZ5L2224053'}
+                        {carStatus.cf_chasis || 'DUMMY-JTJBA4053'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -307,7 +298,7 @@ const CarStatusForm = () => {
                         <FaListOl className='mr-2' /> Parts
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.parts || 'None'}
+                        {carStatus.cf_parts || 'None'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -315,7 +306,7 @@ const CarStatusForm = () => {
                         <FaClipboardCheck className='mr-2' /> Claim
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.claim || '19111842/12/5463295'}
+                        {carStatus.cf_claim || '1911/12'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -323,7 +314,7 @@ const CarStatusForm = () => {
                         <FaRegClock className='mr-2' /> ODOmeter
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.odometer || '130705'}
+                        {carStatus.cf_odometer || '130705'}
                       </span>
                     </div>
                   </div>
@@ -338,7 +329,7 @@ const CarStatusForm = () => {
                         <FaClipboardList className='mr-2' /> Approval Status
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.approvalStatus || 'None'}
+                        {carStatus.cf_approval_status || 'None'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -346,7 +337,7 @@ const CarStatusForm = () => {
                         <FaRegCalendarAlt className='mr-2' /> Approved Date
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.approvedDate || 'None'}
+                        {carStatus.cf_date || 'None'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -354,7 +345,7 @@ const CarStatusForm = () => {
                         <FaRegIdCard className='mr-2' /> Quotes Number
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.quotesNumber || 'QT-007259'}
+                        {carStatus.cf_quotes_number || 'QT-007259'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -362,7 +353,7 @@ const CarStatusForm = () => {
                         <FaUser className='mr-2' /> Client Source
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.clientSource || 'Tawuniya تأمين تعاونية'}
+                        {carStatus.cf_client_source || 'Tawuniya تأمين تعاونية'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -370,7 +361,7 @@ const CarStatusForm = () => {
                         <FaRegDotCircle className='mr-2' /> Days
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.days || '12'}
+                        {carStatus.cf_days || '12'}
                       </span>
                     </div>
                     <div className='bg-orange-250 text-white-500 rounded-xl p-3 flex flex-col min-h-[70px]'>
@@ -378,7 +369,7 @@ const CarStatusForm = () => {
                         <FaListOl className='mr-2' /> Job Ref
                       </span>
                       <span className='text-gray-900 text-sm'>
-                        {carStatus.jobRef || 'ZAH-2327'}
+                        {carStatus.cf_job_ref || 'ZAH-2327'}
                       </span>
                     </div>
                   </div>
