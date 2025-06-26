@@ -1,3 +1,5 @@
+import { auth } from '../../config/firebase.config' // adjust path as needed
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
@@ -29,6 +31,22 @@ const CarStatusForm = () => {
   const [carStatus, setCarStatus] = useState(null)
   const [countryCode, setCountryCode] = useState('+966')
   const [loading, setLoading] = useState(false)
+  const [confirmationResult, setConfirmationResult] = useState(null)
+
+  useEffect(() => {
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        'recaptcha-container',
+        {
+          size: 'invisible',
+          callback: (response) => {
+            // reCAPTCHA solved, allow send OTP
+          },
+        },
+        auth
+      )
+    }
+  }, [])
 
   const handleNumberChange = (e) => {
     const input = e.target.value.replace(/\D/g, '') // Remove non-digits
@@ -46,36 +64,56 @@ const CarStatusForm = () => {
     }
     setError('')
     setLoading(true)
+
+    // 1. Check user exists in your API
     try {
-      // New (call your own backend)
       const response = await fetch(`/api/car-status?mobile=${cleanNumber}`)
       const zohoData = await response.json()
       if (!zohoData.projects || zohoData.projects.length === 0) {
         setError('User not found')
+        setLoading(false)
         return
       }
       setCarStatus(zohoData.projects[0])
-      console.log(zohoData.projects[0])
-      const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString()
-      setSentOtp(generatedOtp)
-      alert(`OTP sent: ${generatedOtp}`)
+
+      // 2. Send OTP using Firebase
+      const phoneNumber = countryCode + cleanNumber
+      const appVerifier = window.recaptchaVerifier
+
+      const confirmation = await signInWithPhoneNumber(
+        auth,
+        phoneNumber,
+        appVerifier
+      )
+      setConfirmationResult(confirmation)
       setStep(2)
       setLoading(false)
     } catch (err) {
-      setError('Error connecting to server. Please try again.')
+      setError('Error sending OTP: ' + (err.message || 'Please try again.'))
+      setLoading(false)
+      // Reset reCAPTCHA if error
+      if (window.recaptchaVerifier) {
+        window.recaptchaVerifier.render().then(function (widgetId) {
+          grecaptcha.reset(widgetId)
+        })
+      }
     }
-    setLoading(false)
   }
 
-  const handleVerifyOtp = (e) => {
+  const handleVerifyOtp = async (e) => {
     e.preventDefault()
-    if (otp !== sentOtp) {
-      setError('Invalid OTP')
+    setError('')
+    if (!confirmationResult) {
+      setError('Please request OTP first.')
       return
     }
-    setError('')
-    // setCarStatus(mockCarStatus)
-    setStep(3)
+    try {
+      await confirmationResult.confirm(otp)
+      // OTP verified, show car status
+      setStep(3)
+    } catch (err) {
+      setError('Invalid OTP. Please try again.')
+    }
   }
 
   return (
@@ -152,6 +190,7 @@ const CarStatusForm = () => {
                           required
                         />
                       </div>
+                      <div id='recaptcha-container'></div>
                     </div>
                   )}
 
