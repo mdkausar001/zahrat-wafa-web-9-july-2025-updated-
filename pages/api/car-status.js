@@ -7,9 +7,8 @@ const ZOHO_BOOK_CLIENT_ID = process.env.ZOHO_BOOK_CLIENT_ID
 const ZOHO_BOOK_CLIENT_SECRET = process.env.ZOHO_BOOK_CLIENT_SECRET
 const ZOHO_BOOK_REFRESH_TOKEN = process.env.ZOHO_BOOK_REFRESH_TOKEN
 const ZOHO_GRANT_TYPE = process.env.ZOHO_GRANT_TYPE
-const ORG_ID = '837124587' // Your Zoho Books organization_id
+const ORG_ID = '837124587'
 
-// Helper to get Zoho access token
 const getAccessToken = async () => {
   const response = await axios.post(ZOHO_TOKEN_URL, null, {
     params: {
@@ -36,13 +35,22 @@ export default async function handler(req, res) {
 
   try {
     const accessToken = await getAccessToken()
-    const url = `https://www.zohoapis.com/books/v3/projects?organization_id=${ORG_ID}&cf_contact_number=${mobile}`
+    const url = `https://www.zohoapis.com/books/v3/projects?organization_id=${ORG_ID}`
     const response = await axios.get(url, {
       headers: {
         Authorization: `Zoho-oauthtoken ${accessToken}`,
       },
     })
-    res.status(200).json(response.data)
+
+    // Filter projects for exact match on cf_user_number
+    const allProjects = response.data.projects || []
+    const matchedProjects = allProjects.filter(
+      (project) =>
+        project.cf_user_number &&
+        project.cf_user_number.trim() === mobile.trim()
+    )
+
+    res.status(200).json({ projects: matchedProjects })
   } catch (error) {
     console.error(
       'Error fetching car status:',

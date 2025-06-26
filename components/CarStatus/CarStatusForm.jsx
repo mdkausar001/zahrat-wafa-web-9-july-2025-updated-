@@ -221,7 +221,7 @@ const CarStatusForm = () => {
                         <span className='font-medium text-blue-700'>Name</span>
                       </div>
                       <div className='text-gray-900 text-base '>
-                        {carStatus.customer_name || 'Dummy Cooperative.'}
+                        {carStatus.customer_name || 'Dummy Name.'}
                       </div>
                     </div>
 
