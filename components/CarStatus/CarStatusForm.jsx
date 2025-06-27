@@ -34,23 +34,46 @@ const CarStatusForm = () => {
   const [confirmationResult, setConfirmationResult] = useState(null)
 
   useEffect(() => {
-    if (!window.recaptchaVerifier) {
+    if (
+      typeof window !== 'undefined' &&
+      !window.recaptchaVerifier &&
+      document.getElementById('recaptcha-container') &&
+      auth
+    ) {
       window.recaptchaVerifier = new RecaptchaVerifier(
+        auth, // <-- auth FIRST
         'recaptcha-container',
         {
           size: 'invisible',
           callback: (response) => {
             // reCAPTCHA solved, allow send OTP
           },
-        },
-        auth
+        }
       )
+    }
+  }, [])
+
+  useEffect(() => {
+    if ('OTPCredential' in window) {
+      window.addEventListener('DOMContentLoaded', async () => {
+        try {
+          const content = await navigator.credentials.get({
+            otp: { transport: ['sms'] },
+            signal: new AbortController().signal,
+          })
+          if (content && content.code) {
+            setOtp(content.code)
+          }
+        } catch (err) {
+          // Ignore if not supported or user denied
+        }
+      })
     }
   }, [])
 
   const handleNumberChange = (e) => {
     const input = e.target.value.replace(/\D/g, '') // Remove non-digits
-    if (input.length <= 12) {
+    if (input.length <= 11) {
       setMobile(input)
     }
   }
@@ -78,6 +101,7 @@ const CarStatusForm = () => {
 
       // 2. Send OTP using Firebase
       const phoneNumber = countryCode + cleanNumber
+      console.log(phoneNumber)
       const appVerifier = window.recaptchaVerifier
 
       const confirmation = await signInWithPhoneNumber(
@@ -101,7 +125,7 @@ const CarStatusForm = () => {
   }
 
   const handleVerifyOtp = async (e) => {
-    e.preventDefault()
+    if (e) e.preventDefault()
     setError('')
     if (!confirmationResult) {
       setError('Please request OTP first.')
@@ -167,7 +191,7 @@ const CarStatusForm = () => {
                       placeholder='5590 34101'
                       className='flex-1 min-w-[120px] w-full px-1 py-2 text-base text-slate-700 outline-none rounded-md'
                       minLength={9}
-                      maxLength={9}
+                      maxLength={10}
                       required
                     />
                   </div>
@@ -184,13 +208,13 @@ const CarStatusForm = () => {
                           onChange={(e) =>
                             setOtp(e.target.value.replace(/\D/, ''))
                           }
+                          autoComplete='one-time-code'
                           placeholder='Enter OTP'
                           className='w-full px-4 py-2 focus:ring-1 outline-none focus:ring-orange-250 border border-orange-250 text-slate-800 transition'
-                          maxLength={4}
+                          maxLength={6}
                           required
                         />
                       </div>
-                      <div id='recaptcha-container'></div>
                     </div>
                   )}
 
@@ -213,6 +237,7 @@ const CarStatusForm = () => {
                     {step === 1 ? 'Send OTP' : 'Verify'}
                   </button>
                 </form>
+                <div id='recaptcha-container'></div>
               </>
             )}
 
