@@ -1,4 +1,5 @@
 import { auth } from '../../config/firebase.config' // adjust path as needed
+auth.settings.appVerificationDisabledForTesting = true
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { PhoneInput } from 'react-international-phone'
@@ -41,13 +42,11 @@ const CarStatusForm = () => {
       auth
     ) {
       window.recaptchaVerifier = new RecaptchaVerifier(
-        auth, // <-- auth FIRST
+        auth,
         'recaptcha-container',
         {
           size: 'invisible',
-          callback: (response) => {
-            // reCAPTCHA solved, allow send OTP
-          },
+          callback: (response) => {},
         }
       )
     }
@@ -102,8 +101,8 @@ const CarStatusForm = () => {
       // 2. Send OTP using Firebase
       const phoneNumber = countryCode + cleanNumber
       console.log(phoneNumber)
+      setStep(3)
       const appVerifier = window.recaptchaVerifier
-
       const confirmation = await signInWithPhoneNumber(
         auth,
         phoneNumber,
@@ -232,12 +231,43 @@ const CarStatusForm = () => {
                   {error && <div className='text-red-500 text-sm'>{error}</div>}
                   <button
                     type='submit'
-                    className='w-full flex justify-center items-center bg-orange-250 text-white-500 font-bold py-2 shadow-lg transition-all duration-200 transform hover:scale-105'
+                    disabled={loading}
+                    className={`w-full flex justify-center items-center bg-orange-250 text-white-500 font-bold py-2 shadow-lg transition-all duration-200 transform hover:bg-orange-250 ${
+                      loading ? 'opacity-70 cursor-not-allowed' : ''
+                    }`}
                   >
-                    {step === 1 ? 'Send OTP' : 'Verify'}
+                    {loading ? (
+                      // You can use a spinner here if you want
+                      <span className='flex'>
+                        <svg
+                          className='animate-spin h-5 w-5 mr-2 text-white'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                        >
+                          <circle
+                            className='opacity-25'
+                            cx='12'
+                            cy='12'
+                            r='10'
+                            stroke='currentColor'
+                            strokeWidth='4'
+                          ></circle>
+                          <path
+                            className='opacity-75'
+                            fill='currentColor'
+                            d='M4 12a8 8 0 018-8v8z'
+                          ></path>
+                        </svg>
+                        Loading...
+                      </span>
+                    ) : step === 1 ? (
+                      'Send OTP'
+                    ) : (
+                      'Verify'
+                    )}
                   </button>
                 </form>
-                <div id='recaptcha-container'></div>
               </>
             )}
 
@@ -254,7 +284,7 @@ const CarStatusForm = () => {
                   </div>
                   <div className='text-center mt-2'>
                     <div className='text-xl font-bold text-white tracking-wide'>
-                      {carStatus.cf_quotes_number || 'Qt-007259'}
+                      {carStatus.project_name || 'Qt-007259'}
                       <span className='ml-2 px-2 py-1 bg-green-500 text-white-100 text-xs rounded-full font-semibold align-middle'>
                         {carStatus.status || 'Not Updated'}
                       </span>
@@ -435,6 +465,7 @@ const CarStatusForm = () => {
           </div>
         </div>
       </main>
+      <div id='recaptcha-container'></div>
       {/* <Footer /> */}
     </div>
   )
