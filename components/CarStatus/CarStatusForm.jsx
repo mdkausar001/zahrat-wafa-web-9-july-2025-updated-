@@ -1,6 +1,9 @@
 import { auth } from '../../config/firebase.config' // adjust path as needed
-auth.settings.appVerificationDisabledForTesting = true
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
+import {
+  getAuth,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+} from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
@@ -33,25 +36,28 @@ const CarStatusForm = () => {
   const [countryCode, setCountryCode] = useState('+966')
   const [loading, setLoading] = useState(false)
   const [confirmationResult, setConfirmationResult] = useState(null)
+  const authInstance = getAuth()
 
   useEffect(() => {
     if (
       typeof window !== 'undefined' &&
       !window.recaptchaVerifier &&
-      document.getElementById('recaptcha-container') &&
-      auth
+      document.getElementById('recaptcha-container')
     ) {
       window.recaptchaVerifier = new RecaptchaVerifier(
-        auth,
+        authInstance,
         'recaptcha-container',
         {
           size: 'invisible',
-          callback: (response) => {},
+          callback: (response) => {
+            console.log('reCAPTCHA solved:', response)
+          },
         }
       )
     }
-  }, [])
+  }, [authInstance])
 
+  // Web OTP API auto-read
   useEffect(() => {
     if ('OTPCredential' in window) {
       window.addEventListener('DOMContentLoaded', async () => {
@@ -62,13 +68,17 @@ const CarStatusForm = () => {
           })
           if (content && content.code) {
             setOtp(content.code)
+            handleVerifyOtp(null, content.code)
           }
         } catch (err) {
-          // Ignore if not supported or user denied
+          console.warn('Web OTP not supported or user denied')
         }
       })
     }
   }, [])
+
+  const formatPhoneNumber = (code, number) =>
+    `${code}${number.replace(/\D/g, '')}`
 
   const handleNumberChange = (e) => {
     const input = e.target.value.replace(/\D/g, '') // Remove non-digits
@@ -99,12 +109,10 @@ const CarStatusForm = () => {
       setCarStatus(zohoData.projects[0])
 
       // 2. Send OTP using Firebase
-      const phoneNumber = countryCode + cleanNumber
-      console.log(phoneNumber)
-      setStep(3)
+      const phoneNumber = formatPhoneNumber(countryCode, mobile)
       const appVerifier = window.recaptchaVerifier
       const confirmation = await signInWithPhoneNumber(
-        auth,
+        authInstance,
         phoneNumber,
         appVerifier
       )
@@ -116,22 +124,22 @@ const CarStatusForm = () => {
       setLoading(false)
       // Reset reCAPTCHA if error
       if (window.recaptchaVerifier) {
-        window.recaptchaVerifier.render().then(function (widgetId) {
-          grecaptcha.reset(widgetId)
-        })
+        window.recaptchaVerifier.clear()
+        window.recaptchaVerifier = null
       }
     }
   }
 
   const handleVerifyOtp = async (e) => {
     if (e) e.preventDefault()
+    const otpCode = code || otp
     setError('')
     if (!confirmationResult) {
       setError('Please request OTP first.')
       return
     }
     try {
-      await confirmationResult.confirm(otp)
+      await confirmationResult.confirm(otpCode)
       // OTP verified, show car status
       setStep(3)
     } catch (err) {
@@ -168,16 +176,24 @@ const CarStatusForm = () => {
                     Mobile Number
                   </label>
                   <div className='flex flex-wrap sm:flex-nowrap items-center gap-2 border border-orange-250 md:py-1 px-2 w-full'>
+                    <img
+                      src={
+                        countryCode === '+966'
+                          ? '/assets/form/ksa.png'
+                          : '/assets/form/default.png'
+                      }
+                      alt='flag'
+                      style={{ width: 28, height: 18, borderRadius: 1 }}
+                    />
                     <select
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
-                      className='p-2 bg-white text-slate-700 outline-none rounded-md min-w-[60px]'
+                      className=' bg-white text-slate-700 outline-none rounded-md min-w-[60px]'
                     >
-                      <option value='+966'>SA +966</option>
-                      <option value='+91'>IN +91</option>
-                      <option value='+971'>AE +971</option>
-                      <option value='+971'>US +1</option>
-                      <option value='+971'>UK +44</option>
+                      <option value='+966'>+966</option>
+                      <option value='+91'>+91</option>
+                      <option value='+971'>+971</option>
+                      <option value='+44'>+44</option>
                       {/* Add more if needed */}
                     </select>
 
@@ -190,7 +206,7 @@ const CarStatusForm = () => {
                       placeholder='5590 34101'
                       className='flex-1 min-w-[120px] w-full px-1 py-2 text-base text-slate-700 outline-none rounded-md'
                       minLength={9}
-                      maxLength={10}
+                      maxLength={9}
                       required
                     />
                   </div>
@@ -205,7 +221,7 @@ const CarStatusForm = () => {
                           type='text'
                           value={otp}
                           onChange={(e) =>
-                            setOtp(e.target.value.replace(/\D/, ''))
+                            setOtp(e.target.value.replace(/\D/g, ''))
                           }
                           autoComplete='one-time-code'
                           placeholder='Enter OTP'
@@ -284,8 +300,12 @@ const CarStatusForm = () => {
                   </div>
                   <div className='text-center mt-2'>
                     <div className='text-xl font-bold text-white tracking-wide'>
-                      {carStatus.project_name || 'Qt-007259'}
-                      <span className='ml-2 px-2 py-1 bg-green-500 text-white-100 text-xs rounded-full font-semibold align-middle'>
+                      {carStatus.project_name
+                        ? carStatus.project_name
+                            .substring(0, carStatus.project_name.indexOf('QT-'))
+                            .trim()
+                        : 'Qt-007259'}
+                      <span className='ml-2 px-4 py-1.5 bg-green-500 text-white-500 text-base rounded-full font-semibold align-middle'>
                         {carStatus.status || 'Not Updated'}
                       </span>
                     </div>
