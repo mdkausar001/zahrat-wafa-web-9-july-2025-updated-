@@ -369,7 +369,15 @@ const CollectionsPage = ({ navLinks, onPageClose }) => {
     { id: 3, name: t('mob_head.s2'), slug: 'classification', types: ['MEN', 'WOMEN'] },
     { id: 4, name: t('mob_head.s5'), slug: 'jobrequest', types: ['MEN', 'WOMEN'] },
     { id: 5, name: t('mob_head.s4'), slug: 'suggestion', types: ['MEN', 'WOMEN'] },
+
+              { id: 8, name: t('mob_head.s10'), slug: 'automotive-metal-works', types: ['MEN', 'WOMEN'] },
+     { id: 9, name: t('mob_head.s11'), slug: 'refrigerated-truck-bodies', types: ['MEN', 'WOMEN'] },
+     { id: 10, name: t('mob_head.s12'), slug: 'trailers-special-bodies', types: ['MEN', 'WOMEN'] },
+     { id: 10, name: t('mob_head.s13'), slug: 'tail-lifts-Conversions', types: ['MEN', 'WOMEN'] },
+
+
     { id: 6, name: t('mob_head.s6'), slug: 'career', types: ['MEN', 'WOMEN'] },
+
   ];
 
   return (

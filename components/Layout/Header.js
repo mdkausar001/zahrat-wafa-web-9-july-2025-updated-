@@ -827,12 +827,12 @@ Resources      {/* Dropdown arrow */}
 
             <div className='relative inline-block text-left'>
               <div className='group'>
-                <button
+                {/* <button
                   type='button'
                   className='inline-flex justify-center items-center w-full px-4 py-2 text-lg font-semibold  bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700'
                 >
                   {/* Select a Service */}
-                  {t('mob_head.s9')}
+                  {/* {t('mob_head.s9')}
                   <svg
                     className='w-4 h-4 ml-2 -mr-1'
                     xmlns='http://www.w3.org/2000/svg'
@@ -841,7 +841,58 @@ Resources      {/* Dropdown arrow */}
                   >
                     <path fillRule='evenodd' d='M10 12l-5-5h10l-5 5z' />
                   </svg>
-                </button>
+                </button> */} 
+                <button
+  type="button"
+  className="shine-btn inline-flex justify-center items-center w-full px-4 py-2 text-lg font-semibold bg-gray-800 text-[#ffff] rounded-md relative overflow-hidden"
+>
+  {t('mob_head.s9')}
+  <svg
+    className="w-4 h-4 ml-2 -mr-1"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+  >
+    <path fillRule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+  </svg>
+
+  <span className="shine"></span>
+
+  <style jsx>{`
+    .shine-btn {
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease-in-out;
+      background: #da5e3cff; /* dark gray base */
+    }
+
+    .shine {
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(238, 125, 32, 0.1) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(214, 60, 60, 0.1) 100%
+      );
+      transform: skewX(-20deg);
+      animation: shineMove 2s linear infinite;
+    }
+
+    @keyframes shineMove {
+      0% {
+        left: -75%;
+      }
+      100% {
+        left: 125%;
+      }
+    }
+  `}</style>
+</button>
+
 
                 {/* Dropdown menu */}
                 <div className='absolute left-0 w-60 mt-2 origin-top-left bg-white-500 divide-y divide-gray-200 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out'>
