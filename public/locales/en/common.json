@@ -25,7 +25,7 @@
         "description1": "We are the Best Premium Auto Workshop provides quality car care in your city. We’re a team of professionals and highly trained technicians who are passionate about everything that has to do with cars!",
       
       
-        "ourServicePartner": "Our Service Partner",
+        "ourServicePartner": "Service Partner",
         "servicePartnerDescription": "Our service partner collaborates with us, offering expertise and resources to deliver high-quality, reliable, and professional services to our clients.",
         
           "weServiceAllCarBrands": "We Service All Car Brands",
@@ -108,7 +108,13 @@
     "s5": "Job request",
     "s6": "Career",
     "s7":"Resources",
-    "s8":"Categories"
+    "s8":"Categories",
+    "s9":"Metal Works",
+    "s10": "Automotive Metal Works",
+"s11": "Refrigerated Truck Bodies",
+"s12": "Trailers & Special Bodies",
+"s13": "Tail Lifts & Conversions"
+
 
 },
   "gallery":"Gallery",
